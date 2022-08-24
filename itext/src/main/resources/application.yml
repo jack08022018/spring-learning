@@ -23,3 +23,5 @@ spring:
     suffix: .html
     template-resolver-order: 1
   jackson.default-property-inclusion: non_absent
+
+pdf.font.folder: D:/Fonts

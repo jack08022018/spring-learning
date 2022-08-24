@@ -26,7 +26,7 @@ class ExportServiceImpl : ExportService {
         val colNums = createHeader(sheet, workbook, 2)
 
 //      data
-        pushExcelData(sheet, workbook, data, 3, colNums);
+        pushExcelData(sheet, workbook, data, 3, colNums)
         workbook.write(outputStream)
         return ByteArrayInputStream(outputStream.toByteArray())
     }
