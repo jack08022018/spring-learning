@@ -24,4 +24,5 @@ spring:
     template-resolver-order: 1
   jackson.default-property-inclusion: non_absent
 
-pdf.font.folder: D:/Fonts
+pdf.folder.font: D:/Fonts
+pdf.folder.baseUri: D:/projects/spring-learning/itext/src/main/resources/static/

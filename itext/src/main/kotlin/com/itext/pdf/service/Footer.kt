@@ -2,7 +2,6 @@ package com.itext.pdf.service
 
 import com.itext.pdf.PdfCommonDto
 import com.itext.pdf.PdfCommonUtils
-import com.itextpdf.html2pdf.ConverterProperties
 import com.itextpdf.kernel.colors.DeviceRgb
 import com.itextpdf.kernel.events.Event
 import com.itextpdf.kernel.events.IEventHandler
@@ -18,25 +17,22 @@ import com.itextpdf.layout.properties.BorderRadius
 import com.itextpdf.layout.properties.TextAlignment
 import com.itextpdf.layout.properties.VerticalAlignment
 
-class Footer(pdfCommonUtils: PdfCommonUtils, dto: PdfCommonDto) : IEventHandler {
-    private val dto: PdfCommonDto = dto
-    private val pdfCommonUtils: PdfCommonUtils = pdfCommonUtils
+class Footer(private val pdfCommonUtils: PdfCommonUtils, dto: PdfCommonDto) : IEventHandler {
     override fun handleEvent(event: Event) {
         val docEvent: PdfDocumentEvent = event as PdfDocumentEvent
         val page: PdfPage = docEvent.getPage()
         val pageSize = page.pageSize
-        val canvas: Canvas = Canvas(PdfCanvas(page), pageSize)
+        val canvas = Canvas(PdfCanvas(page), pageSize)
         canvas.showTextAligned(
             "390004598 - 05/11/2020 14:03:41 GMT 07:00",
             pageSize.left + 30,
             pageSize.bottom + 13,
             TextAlignment.LEFT
         )
-        val number = "<span style='" +
-                "border: 1px solid black;" +
-                "font: bold 20px verdana;" +
-                "padding: 0 3 0 3;" +
-                "'>10201141</span>"
+        val number = """
+            <span style='border: 1px solid black; font: bold 20px verdana;
+                padding: 0 3 0 3;'>10201141</span>
+        """
         canvas.showTextAligned(
             pdfCommonUtils.getElementFromHtml(number) as Paragraph,
             pageSize.right - 66,
@@ -58,8 +54,8 @@ class Footer(pdfCommonUtils: PdfCommonUtils, dto: PdfCommonDto) : IEventHandler 
                 number.setMaxWidth(32f)
                 number.setPadding(2f)
                 //            number.setPaddingLeft(5);
-//            number.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-                number.setKeepTogether(true)
+    //            number.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+                number.isKeepTogether = true
                 number.setBackgroundColor(DeviceRgb(255, 0, 0))
                 number.setFontColor(DeviceRgb.WHITE)
                 doc.showTextAligned(
@@ -68,10 +64,10 @@ class Footer(pdfCommonUtils: PdfCommonUtils, dto: PdfCommonDto) : IEventHandler 
                     pageSize.bottom + 30,
                     i,
                     TextAlignment.CENTER,
-                    VerticalAlignment.TOP, 0f
+                    VerticalAlignment.TOP,
+                    0f
                 )
             }
         }
-
     }
 }

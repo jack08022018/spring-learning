@@ -29,18 +29,19 @@ class PDFGenerator {
         PdfService.addMetaData(pdfDoc)
         pdfDoc.addEventHandler(PdfDocumentEvent.START_PAGE, Background())
         pdfDoc.addEventHandler(PdfDocumentEvent.START_PAGE, Header(pdfCommonUtils, headerDto))
-//        pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, Footer(pdfCommonUtils, headerDto))
+        pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, Footer(pdfCommonUtils, headerDto))
         val document = Document(pdfDoc, PageSize(PageSize.A4.width, PageSize.A4.height), false)
         try {
             document.setMargins(40f, 30f, 40f, 30f)
             document.add(Paragraph("\n\n\n"))
             for (i in 0..1) {
-                PdfService.buildPart_A(document, pdfCommonUtils)
+                PdfService.buildPartA(document, pdfCommonUtils)
+                PdfService.buildPartB(document, pdfCommonUtils)
 //                PdfService.buildCaution(document, pdfCommonUtils)
 //                PdfService.buildPart_B(document, pdfCommonUtils)
 //                document.add(AreaBreak(AreaBreakType.NEXT_PAGE))
             }
-//            Footer.addPagingToFooter(document)
+            Footer.addPagingToFooter(document)
         } catch (e: Exception) {
             throw e
         } finally {

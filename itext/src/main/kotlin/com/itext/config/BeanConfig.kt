@@ -28,9 +28,11 @@ class BeanConfig {
     @Bean(name = ["customConverterProperties"])
     fun getConverterProperties(): ConverterProperties? {
         val fontProvider: FontProvider = DefaultFontProvider(false, false, false)
-        fontProvider.addDirectory(env.get("pdf.font.folder"))
+        fontProvider.addDirectory(env.get("pdf.folder.font"))
         var converter: ConverterProperties = ConverterProperties()
         converter.fontProvider = fontProvider
+        converter.baseUri = env.get("pdf.folder.baseUri")
+//        converter.baseUri = "D:/images/"
         return converter
     }
 }
