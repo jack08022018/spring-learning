@@ -44,14 +44,3 @@ class SecurityConfig {
         }
     }
 }
-
-//        http.cors()
-//            .and()
-//            .csrf().disable()
-//            //            .httpBasic().disable()
-//            //            .and()
-//            .authorizeRequests()
-//            //            .antMatchers("/api/*")
-//            //            .hasRole("admin")
-//            .anyRequest()
-//            .permitAll()
