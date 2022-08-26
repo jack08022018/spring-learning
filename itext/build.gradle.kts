@@ -34,6 +34,10 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+//    log
+    implementation("org.springframework.boot:spring-boot-starter-logging:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:2.7.3")
+
     //	itextPdf
     implementation("com.itextpdf:itextpdf:5.5.13.3")
     implementation ("com.itextpdf:html2pdf:4.0.2")
@@ -45,6 +49,12 @@ dependencies {
     implementation ("com.itextpdf:itext-pdfa:5.5.13.3")
     implementation("org.apache.poi:poi:5.2.2")
     implementation("org.apache.poi:poi-ooxml:5.2.2")
+}
+
+configurations {
+    all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
 }
 
 tasks.withType<KotlinCompile> {

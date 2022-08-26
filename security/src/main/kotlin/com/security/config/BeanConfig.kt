@@ -1,18 +1,18 @@
-package com.itext.config
+package com.security.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.itextpdf.html2pdf.ConverterProperties
-import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider
-import com.itextpdf.layout.font.FontProvider
+import com.security.config.filters.MainFilter
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.core.env.get
+import org.springframework.scheduling.annotation.EnableScheduling
 
 @Configuration
+@EnableScheduling
 class BeanConfig {
     @Autowired
     lateinit var env: Environment
@@ -25,16 +25,13 @@ class BeanConfig {
         return mapper
     }
 
-    @Bean(name = ["customConverterProperties"])
-    fun getConverterProperties(): ConverterProperties? {
-        val fontProvider: FontProvider = DefaultFontProvider(
-            false,
-            false,
-            false)
-        fontProvider.addDirectory(env["pdf.folder.font"])
-        val converter = ConverterProperties()
-        converter.fontProvider = fontProvider
-        converter.baseUri = "classpath:/static/"
-        return converter
+    @Bean
+    fun mainFilter(): FilterRegistrationBean<MainFilter>? {
+        val registrationBean: FilterRegistrationBean<MainFilter> = FilterRegistrationBean<MainFilter>()
+        registrationBean.filter = MainFilter()
+        registrationBean.addUrlPatterns("/api/*")
+        registrationBean.order = 1
+        return registrationBean
     }
+
 }

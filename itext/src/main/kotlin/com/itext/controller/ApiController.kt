@@ -29,13 +29,22 @@ class ApiController {
     @Qualifier("customObjectMapper")
     lateinit var mapper: ObjectMapper
 
-    private val LOGGER = LoggerFactory.getLogger(ApiController::class.java)
+    private val logger = LoggerFactory.getLogger(ApiController::class.java)
+
+    @GetMapping(value = ["/log"])
+    fun log(@RequestParam("status") status: String) {
+        if(status == "success") {
+            logger.info("success")
+        }else {
+            val a = 1/0
+        }
+    }
 
     @GetMapping(value = ["/exportExcel"])
     @Throws(Exception::class)
     fun exportExcel(@RequestParam("file") file: MultipartFile): ResponseEntity<Resource?>? {
         val fileExport = InputStreamResource(exportService.exportExcel(file))
-        LOGGER.info("exportExcel")
+        logger.info("exportExcel")
         return ResponseEntity
             .ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=tutorials.xlsx")
@@ -46,6 +55,7 @@ class ApiController {
 
     @GetMapping(value = ["/exportPdf"], produces = [MediaType.APPLICATION_PDF_VALUE])
     fun exportPdf(): ResponseEntity<InputStreamResource?>? {
+        logger.info("aaaa")
         val bis: ByteArrayInputStream = pDFGenerator.getPdfReport()
         val headers = HttpHeaders()
         headers.add("Content-Disposition", "inline; filename=customers.pdf")

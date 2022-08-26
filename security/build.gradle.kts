@@ -34,6 +34,16 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+
+    //    log
+    implementation("org.springframework.boot:spring-boot-starter-logging:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:2.7.3")
+}
+
+configurations {
+    all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
 }
 
 tasks.withType<KotlinCompile> {

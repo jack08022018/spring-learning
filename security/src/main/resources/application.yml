@@ -1,6 +1,6 @@
 server:
-  port: 9091
-  servlet.context-path: /itext
+  port: 9092
+  servlet.context-path: /security
   undertow.max-http-post-size: 0
 
 logging:
@@ -13,7 +13,7 @@ logging:
     org.springframework.boot.autoconfigure: INFO
 
 spring:
-  application.name: itext
+  application.name: security
   main.allow-bean-definition-overriding: true
   thymeleaf:
     cache: false
@@ -23,5 +23,5 @@ spring:
     suffix: .html
     template-resolver-order: 1
   jackson.default-property-inclusion: non_absent
-
-pdf.folder.font: D:/Fonts
+  security:
+    debug: false
