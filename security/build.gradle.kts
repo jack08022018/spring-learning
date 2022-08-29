@@ -34,6 +34,12 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+    runtimeOnly("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter-data-rest")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
     //    log
     implementation("org.springframework.boot:spring-boot-starter-logging:2.7.3")
