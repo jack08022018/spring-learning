@@ -7,12 +7,12 @@ import javax.persistence.*
 @Entity
 @Table(name = "user")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-open class User (
+open class User(
     @Id
     @GeneratedValue
-    var id: Long? = null,
+    open var id: Long? = null,
 
     @Column(nullable = false, unique = true)
-    var username: String? = null,
-    var password: String? = null
+    open var username: String? = null,
+    open var password: String? = null
 ) : Serializable

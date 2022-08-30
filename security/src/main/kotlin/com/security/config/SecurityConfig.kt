@@ -37,12 +37,12 @@ class SecurityConfig {
         return JwtAuthenticationFilter()
     }
 
-//    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-//    @Throws(java.lang.Exception::class)
-//    fun authenticationManagerBean(): AuthenticationManager? {
-//        // Get AuthenticationManager Bean
-//        return super.authenticationManagerBean()
-//    }
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Throws(java.lang.Exception::class)
+    fun authenticationManagerBean(): AuthenticationManager? {
+        // Get AuthenticationManager Bean
+        return authenticationManagerBean()
+    }
 
     @Bean
     fun passwordEncoder(): PasswordEncoder? {
@@ -67,10 +67,12 @@ class SecurityConfig {
             .httpBasic()
             .and()
             .authorizeRequests()
+            .antMatchers("/api/login").permitAll()
+            .anyRequest().authenticated()
 //            .antMatchers("/api/*")
 //                .hasRole("admin")
-            .anyRequest()
-            .permitAll()
+//            .anyRequest()
+//            .permitAll()
         return http.build()
     }
 

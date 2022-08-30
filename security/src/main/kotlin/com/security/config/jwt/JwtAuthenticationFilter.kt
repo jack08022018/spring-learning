@@ -40,8 +40,7 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
                 if (userDetails != null) {
                     val authentication = UsernamePasswordAuthenticationToken(
                         userDetails, null,
-                        userDetails
-                            .authorities
+                        userDetails.authorities
                     )
                     authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
                     SecurityContextHolder.getContext().authentication = authentication

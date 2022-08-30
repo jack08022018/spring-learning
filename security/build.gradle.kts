@@ -38,8 +38,8 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("mysql:mysql-connector-java")
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+//    runtimeOnly("mysql:mysql-connector-java")
+//    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
     //    log
     implementation("org.springframework.boot:spring-boot-starter-logging:2.7.3")
