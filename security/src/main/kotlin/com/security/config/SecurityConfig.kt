@@ -1,47 +1,46 @@
 package com.security.config
 
-import com.security.config.jwt.JwtAuthenticationFilter
-import com.security.config.jwt.JwtTokenProvider
-import com.security.config.jwt.user.UserService
-import org.slf4j.LoggerFactory
+import com.security.config.jwt.AuthEntryPointJwt
+import com.security.config.jwt.AuthTokenFilter
+import com.security.config.jwt.service.UserDetailsServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.BeanIds
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import java.lang.Exception
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-class SecurityConfig {
-    private val logger = LoggerFactory.getLogger(SecurityConfig::class.java)
-
-    @Value("\${spring.security.debug}")
-    var securityDebug = false
+class SecurityConfig : WebSecurityConfigurerAdapter() {
+    @Autowired
+    lateinit var userDetailsService: UserDetailsServiceImpl
 
     @Autowired
-    var userService: UserService? = null
+    lateinit var unauthorizedHandler: AuthEntryPointJwt
 
     @Bean
-    fun jwtAuthenticationFilter(): JwtAuthenticationFilter? {
-        return JwtAuthenticationFilter()
+    fun authenticationJwtTokenFilter(): AuthTokenFilter? {
+        return AuthTokenFilter()
     }
 
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    @Throws(java.lang.Exception::class)
-    fun authenticationManagerBean(): AuthenticationManager? {
-        // Get AuthenticationManager Bean
-        return authenticationManagerBean()
+    @Throws(Exception::class)
+    override fun configure(authenticationManagerBuilder: AuthenticationManagerBuilder) {
+        authenticationManagerBuilder.userDetailsService<UserDetailsService?>(userDetailsService)
+            .passwordEncoder(passwordEncoder())
+    }
+
+    @Bean
+    @Throws(Exception::class)
+    override fun authenticationManagerBean(): AuthenticationManager? {
+        return super.authenticationManagerBean()
     }
 
     @Bean
@@ -49,39 +48,16 @@ class SecurityConfig {
         return BCryptPasswordEncoder()
     }
 
-    @Throws(java.lang.Exception::class)
-    protected fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService<UserDetailsService?>(userService) // Cung cáp userservice cho spring security
-            .passwordEncoder(passwordEncoder()) // cung cấp password encoder
-    }
-
-    @Bean
     @Throws(Exception::class)
-    fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        http.cors()
-            .and()
-            .csrf().disable()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .httpBasic()
-            .and()
+    override fun configure(http: HttpSecurity) {
+        http.cors().and().csrf().disable()
+            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             .antMatchers("/api/login").permitAll()
+            .antMatchers("/api/admin").hasRole("ADMIN")
+            .antMatchers("/api/user").hasAnyRole("ADMIN", "USER")
             .anyRequest().authenticated()
-//            .antMatchers("/api/*")
-//                .hasRole("admin")
-//            .anyRequest()
-//            .permitAll()
-        return http.build()
-    }
-
-    @Bean
-    fun webSecurityCustomizer(): WebSecurityCustomizer {
-        return WebSecurityCustomizer { web: WebSecurity ->
-            web.debug(securityDebug)
-                .ignoring()
-                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico")
-        }
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter::class.java)
     }
 }

@@ -1,10 +1,10 @@
 package com.security.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.security.config.jwt.JwtTokenProvider
+import com.security.config.jwt.JwtUtils
 import com.security.config.jwt.payload.LoginRequest
 import com.security.config.jwt.payload.LoginResponse
-import com.security.config.jwt.user.CustomUserDetails
+import com.security.config.jwt.service.UserDetailsImpl
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,8 +13,9 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
+import java.util.stream.Collectors
 
-@RestControllerAdvice
+@RestController
 @RequestMapping(value = ["/api"])
 class ApiController {
 //    @Autowired
@@ -26,8 +27,31 @@ class ApiController {
 
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    @GetMapping(value = ["/log"])
-    fun log(@RequestParam("status") status: String) {
+    @Autowired
+    lateinit var authenticationManager: AuthenticationManager
+
+    @Autowired
+    lateinit var jwtUtils: JwtUtils
+
+    @PostMapping("/login")
+    fun authenticateUser(@RequestBody loginRequest: LoginRequest): LoginResponse? {
+        val authentication = authenticationManager.authenticate(
+            UsernamePasswordAuthenticationToken(
+                loginRequest.username,
+                loginRequest.password
+            )
+        )
+        SecurityContextHolder.getContext().authentication = authentication
+        val response = jwtUtils.generateJwtToken(authentication)
+        val userDetails: UserDetailsImpl = authentication.principal as UserDetailsImpl
+        val roles: List<String> = userDetails.getAuthorities().stream()
+            .map { item -> item.getAuthority() }
+            .collect(Collectors.toList())
+        return response
+    }
+
+    @GetMapping(value = ["/admin"])
+    fun admin(@RequestParam("status") status: String) {
         if (status == "success") {
             logger.info("success")
         } else {
@@ -35,30 +59,13 @@ class ApiController {
         }
     }
 
-    @Autowired
-    lateinit var authenticationManager: AuthenticationManager
-
-    @Autowired
-    lateinit var tokenProvider: JwtTokenProvider
-
-    @PostMapping("/login")
-    fun authenticateUser(@RequestBody loginRequest: LoginRequest): LoginResponse? {
-
-        // Xác thực thông tin người dùng Request lên
-        val authentication = authenticationManager!!.authenticate(
-            UsernamePasswordAuthenticationToken(
-                loginRequest.username,
-                loginRequest.password
-            )
-        )
-
-        // Nếu không xảy ra exception tức là thông tin hợp lệ
-        // Set thông tin authentication vào Security Context
-        SecurityContextHolder.getContext().authentication = authentication
-
-        // Trả về jwt cho người dùng.
-        val jwt: String = tokenProvider.generateToken(authentication.principal as CustomUserDetails)
-        return LoginResponse(jwt)
+    @GetMapping(value = ["/user"])
+    fun user(@RequestParam("status") status: String) {
+        if (status == "success") {
+            logger.info("success")
+        } else {
+            println(1 / 0)
+        }
     }
 
 }

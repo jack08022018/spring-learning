@@ -1,6 +1,6 @@
 package com.security
 
-import com.security.config.jwt.user.User
+import com.security.config.jwt.user.UserEntity
 import com.security.config.jwt.user.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -19,9 +19,16 @@ class SecurityApplication : CommandLineRunner {
     lateinit var passwordEncoder: PasswordEncoder
 
     override fun run(vararg args: String?) {
-        val user = User()
-        user.username = "loda"
-        user.password = passwordEncoder.encode("loda")
+        var user = UserEntity()
+        user.username = "admin"
+        user.password = passwordEncoder.encode("1234")
+        user.roles = listOf("ROLE_ADMIN","ROLE_USER")
+        userRepository.save(user)
+
+        user = UserEntity()
+        user.username = "user"
+        user.password = passwordEncoder.encode("1234")
+        user.roles = listOf("ROLE_USER")
         userRepository.save(user)
     }
 }

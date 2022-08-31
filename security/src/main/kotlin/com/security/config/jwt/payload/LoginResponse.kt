@@ -1,5 +1,11 @@
 package com.security.config.jwt.payload
 
-class LoginResponse(val accessToken: String? = null) {
-    private val tokenType = "Bearer"
+import java.util.*
+
+class LoginResponse(
+    val accessToken: String? = null,
+    val issuedAt: String? = null,
+    val expiration: String? = null
+) {
+    val tokenType = "Bearer"
 }

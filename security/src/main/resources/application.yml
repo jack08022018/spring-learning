@@ -37,3 +37,6 @@ spring:
   h2:
     console:
       enabled: true
+
+app.jwt.secret: bezKoderSecretKey
+app.jwt.expiration: 86400000
