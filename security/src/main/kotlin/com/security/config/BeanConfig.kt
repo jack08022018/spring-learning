@@ -21,7 +21,7 @@ class BeanConfig {
     lateinit var env: Environment
 
     @Bean(name = ["customObjectMapper"])
-    fun getObjectMapper(): ObjectMapper? {
+    fun getObjectMapper(): ObjectMapper {
         val mapper = ObjectMapper()
         mapper.registerModule(JavaTimeModule())
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
@@ -37,7 +37,7 @@ class BeanConfig {
     //        return registrationBean;
     //    }
     @Bean(name = ["customRestTemplate"])
-    fun getRestTemplate(): RestTemplate? {
+    fun getRestTemplate(): RestTemplate {
         val requestFactory = SimpleClientHttpRequestFactory()
         requestFactory.setReadTimeout(10000)
         requestFactory.setConnectTimeout(10000)
@@ -47,7 +47,7 @@ class BeanConfig {
     }
 
     @Bean
-    fun mainFilter(): FilterRegistrationBean<MainFilter>? {
+    fun mainFilter(): FilterRegistrationBean<MainFilter> {
         val registrationBean: FilterRegistrationBean<MainFilter> = FilterRegistrationBean<MainFilter>()
         registrationBean.filter = MainFilter()
         registrationBean.addUrlPatterns("/api/*")

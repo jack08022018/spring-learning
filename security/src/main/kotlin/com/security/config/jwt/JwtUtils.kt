@@ -4,12 +4,15 @@ import com.security.common.FunctionCommonUtils
 import com.security.config.jwt.payload.LoginResponse
 import com.security.config.jwt.service.UserDetailsImpl
 import io.jsonwebtoken.*
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
+import org.springframework.util.StringUtils
 import java.util.*
+import javax.servlet.http.HttpServletRequest
 
 @Component
 class JwtUtils {
@@ -21,6 +24,16 @@ class JwtUtils {
 
     @Autowired
     lateinit var functionCommonUtils: FunctionCommonUtils
+
+    private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
+
+    fun parseJwt(request: HttpServletRequest): String {
+        val headerAuth = request.getHeader("Authorization")
+        if (!(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer "))) {
+            throw java.lang.Exception("Missing bearer token")
+        }
+        return headerAuth.substring(7, headerAuth.length)
+    }
 
     fun generateJwtToken(authentication: Authentication): LoginResponse {
         val userPrincipal: UserDetailsImpl = authentication.principal as UserDetailsImpl
@@ -69,9 +82,5 @@ class JwtUtils {
 //        } catch (e: IllegalArgumentException) {
 //            logger.error("JWT claims string is empty: {}", e.message)
 //        }
-    }
-
-    companion object {
-        private val logger = LoggerFactory.getLogger(JwtUtils::class.java)
     }
 }

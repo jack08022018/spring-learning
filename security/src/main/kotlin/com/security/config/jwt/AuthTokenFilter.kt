@@ -8,10 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.util.StringUtils
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
-import java.lang.Exception
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
@@ -24,7 +22,7 @@ class AuthTokenFilter : OncePerRequestFilter() {
     @Autowired
     lateinit var userDetailsService: UserDetailsServiceImpl
 
-    private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
+    private val LOGGER: Logger = LoggerFactory.getLogger(this.javaClass)
 
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
@@ -33,7 +31,7 @@ class AuthTokenFilter : OncePerRequestFilter() {
         filterChain: FilterChain
     ) {
         try {
-            val jwt = parseJwt(request)
+            val jwt = jwtUtils.parseJwt(request)
             jwtUtils.validateJwtToken(jwt)
             val username = jwtUtils.getUserNameFromJwtToken(jwt)
             val userDetails: UserDetails = userDetailsService.loadUserByUsername(username)
@@ -45,16 +43,9 @@ class AuthTokenFilter : OncePerRequestFilter() {
             authentication.details = WebAuthenticationDetailsSource().buildDetails(request)
             SecurityContextHolder.getContext().authentication = authentication
         } catch (e: Exception) {
-            logger.error("Cannot set user authentication: {}", e)
+            LOGGER.error("Cannot set user authentication: {}", e)
         }
         filterChain.doFilter(request, response)
     }
 
-    private fun parseJwt(request: HttpServletRequest): String {
-        val headerAuth = request.getHeader("Authorization")
-        if (!(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer "))) {
-            throw Exception("Missing bearer token")
-        }
-        return headerAuth.substring(7, headerAuth.length)
-    }
 }

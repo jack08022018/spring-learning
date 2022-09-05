@@ -1,11 +1,8 @@
 package com.security.config.jwt.service
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.security.config.jwt.user.UserEntity
 import org.springframework.security.core.GrantedAuthority
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import java.util.stream.Collectors
 
 internal class UserDetailsImpl(
     private val id: Long,
@@ -19,7 +16,7 @@ internal class UserDetailsImpl(
 ) : UserDetails {
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
-        return setOf(SimpleGrantedAuthority("ROLE_USER"))
+        return authorities
     }
 
     override fun getPassword(): String {
@@ -46,25 +43,11 @@ internal class UserDetailsImpl(
         return true
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val user = o as UserDetailsImpl
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val user = other as UserDetailsImpl
         return id == user.id
     }
 
-    companion object {
-        private const val serialVersionUID = 1L
-        fun build(user: UserEntity): UserDetailsImpl {
-            val authorities: List<GrantedAuthority> = user.roles!!.stream()
-                .map { role -> SimpleGrantedAuthority(role) }
-                .collect(Collectors.toList())
-            return UserDetailsImpl(
-                user.id!!,
-                user.username!!,
-                user.password!!,
-                authorities
-             )
-        }
-    }
 }
