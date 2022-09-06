@@ -8,21 +8,9 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.7.3/51a5ea1af70ef8065cec9f1a216009ad116a7b0f/spring-boot-configuration-processor-2.7.3.jar" />
         </processorPath>
-        <module name="com.h2database.main" />
-      </profile>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
+        <module name="multidatasource.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17">
-      <module name="spring-security-hibernate-jwt" target="1.8" />
-    </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="spring-security-hibernate-jwt" options="-parameters" />
-    </option>
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>

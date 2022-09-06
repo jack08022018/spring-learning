@@ -5,15 +5,6 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/../all-module/itext-demo" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/../all-module/itext-demo" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/h2database" />
         <option name="modules">
           <set>
@@ -27,6 +18,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/itext" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/multidatasource" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/multidatasource" />
           </set>
         </option>
       </GradleProjectSettings>

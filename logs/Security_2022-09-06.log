@@ -1,0 +1,40 @@
+2022-09-06 09:44:04.349 INFO  org.springframework.nativex.NativeListener - AOT mode disabled
+2022-09-06 09:44:04.652 INFO  com.security.SecurityApplicationKt - Starting SecurityApplicationKt using Java 17.0.3.1 on HCMLW-dthoang1 with PID 24188 (D:\projects\spring-learning\security\build\classes\kotlin\main started by dthoang1 in D:\projects\spring-learning)
+2022-09-06 09:44:04.652 INFO  com.security.SecurityApplicationKt - No active profile set, falling back to 1 default profile: "default"
+2022-09-06 09:44:04.870 INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-09-06 09:44:04.870 INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-09-06 09:44:08.067 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-09-06 09:44:08.193 INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 113 ms. Found 1 JPA repository interfaces.
+2022-09-06 09:44:09.778 INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9092 (http)
+2022-09-06 09:44:09.793 INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9092"]
+2022-09-06 09:44:09.793 INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2022-09-06 09:44:09.793 INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-06 09:44:09.966 INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/security] - Initializing Spring embedded WebApplicationContext
+2022-09-06 09:44:09.966 INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5096 ms
+2022-09-06 09:44:10.170 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2022-09-06 09:44:10.405 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2022-09-06 09:44:10.437 INFO  org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2022-09-06 09:44:10.688 WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-09-06 09:44:10.986 INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-09-06 09:44:11.111 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
+2022-09-06 09:44:11.567 INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-09-06 09:44:11.834 INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2022-09-06 09:44:13.152 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-09-06 09:44:13.167 INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-09-06 09:44:15.960 DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - 5 mappings in 'requestMappingHandlerMapping'
+2022-09-06 09:44:16.713 DEBUG org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource - Adding web access control expression [permitAll] for Ant [pattern='/api/login']
+2022-09-06 09:44:16.713 DEBUG org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource - Adding web access control expression [hasRole('ROLE_ADMIN')] for Ant [pattern='/api/admin']
+2022-09-06 09:44:16.729 DEBUG org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource - Adding web access control expression [hasAnyRole('ROLE_ADMIN','ROLE_USER')] for Ant [pattern='/api/user']
+2022-09-06 09:44:16.729 DEBUG org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource - Adding web access control expression [authenticated] for any request
+2022-09-06 09:44:16.792 INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@48d3d8f5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@b28002, org.springframework.security.web.context.SecurityContextPersistenceFilter@3622a5d8, org.springframework.security.web.header.HeaderWriterFilter@12c5cb7b, org.springframework.web.filter.CorsFilter@777c216f, org.springframework.security.web.authentication.logout.LogoutFilter@36c44a6b, com.security.config.jwt.AuthTokenFilter@6226aac3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1dd63949, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70be56d2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@653939ec, org.springframework.security.web.session.SessionManagementFilter@74d31f4b, org.springframework.security.web.access.ExceptionTranslationFilter@1b206b53, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2f889a92]
+2022-09-06 09:44:17.011 DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-09-06 09:44:17.105 DEBUG org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-09-06 09:44:18.345 INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2022-09-06 09:44:18.392 INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9092"]
+2022-09-06 09:44:18.442 INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 9092 (http) with context path '/security'
+2022-09-06 09:44:18.467 INFO  com.security.SecurityApplicationKt - Started SecurityApplicationKt in 15.108 seconds (JVM running for 21.002)
+2022-09-06 09:44:49.045 INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-09-06 09:44:49.045 INFO  org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2022-09-06 09:44:49.296 WARN  org.springframework.beans.factory.support.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2022-09-06 09:44:49.316 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2022-09-06 09:44:49.359 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
