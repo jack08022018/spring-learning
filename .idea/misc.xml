@@ -6,10 +6,14 @@
     <file type="web" url="file://$PROJECT_DIR$/demo-springboot" />
     <file type="web" url="file://$PROJECT_DIR$/h2database" />
     <file type="web" url="file://$PROJECT_DIR$/itext" />
+    <file type="web" url="file://$PROJECT_DIR$/multi-db" />
     <file type="web" url="file://$PROJECT_DIR$/multidatasource" />
     <file type="web" url="file://$PROJECT_DIR$/security" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="jpab" />
   </component>
 </project>
