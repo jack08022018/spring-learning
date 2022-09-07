@@ -4,6 +4,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/../demo-springboot" />
     <file type="web" url="file://$PROJECT_DIR$/demo-springboot" />
+    <file type="web" url="file://$PROJECT_DIR$/extjs" />
     <file type="web" url="file://$PROJECT_DIR$/h2database" />
     <file type="web" url="file://$PROJECT_DIR$/itext" />
     <file type="web" url="file://$PROJECT_DIR$/multi-db" />
