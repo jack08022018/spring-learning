@@ -11,11 +11,12 @@ import java.util.List;
 
 @Repository
 public interface SalariesRepository extends JpaRepository<SalariesEntity, Integer> {
-    @Query(nativeQuery = true, value = "" +
-            "SELECT A.emp_no, A.salary, A.from_date, CONCAT(B.first_name, ' ', B.last_name) AS full_name " +
-            "FROM salaries A " +
-            "   INNER JOIN employees B ON B.emp_no = A.emp_no " +
-            "WHERE A.salary < :amount " +
-            "ORDER BY A.salary ")
+    @Query(nativeQuery = true, value = """
+        SELECT A.emp_no, A.salary, A.from_date, CONCAT(B.first_name, ' ', B.last_name) AS full_name\s
+        FROM salaries A\s
+           INNER JOIN employees B ON B.emp_no = A.emp_no\s
+        WHERE A.salary < :amount\s
+        ORDER BY A.salary
+    """)
     List<EmployeeInfo> getEmployeeSalary(@Param("amount") Integer amount);
 }
