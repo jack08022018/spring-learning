@@ -3,6 +3,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/../demo-springboot" />
+    <file type="web" url="file://$PROJECT_DIR$/activeMQ" />
     <file type="web" url="file://$PROJECT_DIR$/demo-springboot" />
     <file type="web" url="file://$PROJECT_DIR$/extjs" />
     <file type="web" url="file://$PROJECT_DIR$/h2database" />

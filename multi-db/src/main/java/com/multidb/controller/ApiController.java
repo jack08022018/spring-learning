@@ -25,7 +25,7 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ApiController.class);
+    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private static final Marker IMPORTANT = MarkerFactory.getMarker("IMPORTANT");
 
     @Autowired
