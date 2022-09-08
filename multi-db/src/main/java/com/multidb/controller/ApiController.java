@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multidb.repository.employee.dto.EmployeeInfo;
+import com.multidb.repository.mongoLocal.GroceryItemRepository;
+import com.multidb.repository.mongoLocal.entity.GroceryItem;
 import com.multidb.repository.sakila.dto.MovieRentalInfo;
 import com.multidb.service.ApiService;
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +29,32 @@ public class ApiController {
     @Autowired
     private ApiService apiService;
 
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private static final Marker IMPORTANT = MarkerFactory.getMarker("IMPORTANT");
 
     @Autowired
     @Qualifier("customObjectMapper")
     private ObjectMapper mapper;
+
+    @Autowired
+    GroceryItemRepository groceryItemRepository;
+
+    @Autowired
+    MongoTemplate mongoTemplate;
+
+    @PostMapping(value = "/addUser")
+    @Transactional(rollbackFor = Exception.class)
+    public void addUser() {
+//        productService.addUser();
+//        mongoTemplate.save(new GroceryItem("AAA", "Whole Wheat Biscuit", 5, "snacks"));
+        groceryItemRepository.save(new GroceryItem("AAA", "Whole Wheat Biscuit", 5, "snacks"));
+//        int a = 1/0;
+    }
+
+    @PostMapping(value = "/groceries")
+    public <T> List<T> groceries() {
+        return (List<T>) groceryItemRepository.findAll();
+    }
 
     @PostMapping("/getProductData")
     JsonNode getProductData() throws JsonProcessingException {

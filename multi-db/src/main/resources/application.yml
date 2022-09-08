@@ -34,3 +34,8 @@ app.datasource.sakila.password: 123456
 app.datasource.employee.url: jdbc:mysql://localhost:3306/employees
 app.datasource.employee.username: root
 app.datasource.employee.password: 123456
+
+app.datasource.mongo-local.url: mongodb://localhost:27017
+app.datasource.mongo-local.database: test
+app.datasource.mongo-local.username:
+app.datasource.mongo-local.password:

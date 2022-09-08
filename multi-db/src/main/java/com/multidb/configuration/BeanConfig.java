@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 @EnableScheduling
-public class AppConfig {
+public class BeanConfig {
 
     @Autowired
     private Environment env;
