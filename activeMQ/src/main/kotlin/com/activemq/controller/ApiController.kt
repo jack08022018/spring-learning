@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestController
 @RequestMapping(value = ["/api"])
@@ -20,10 +21,7 @@ class ApiController {
 
     @PostMapping(value = ["/handleObj"])
     fun handleObj() {
-        val message = MessageInfo(
-            clientCode = "1001001",
-            classCode = "1121245"
-        )
+        val message = MessageInfo(clientCode = "1001001", classCode = "1121245")
         jmsProducer.handleObj(message)
     }
 }

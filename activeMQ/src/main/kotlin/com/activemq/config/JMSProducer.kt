@@ -2,13 +2,9 @@ package com.activemq.config
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jms.core.JmsTemplate
-import javax.annotation.PostConstruct
-import com.activemq.config.QueueName
-import org.springframework.jms.core.MessageCreator
 import org.springframework.stereotype.Component
+import javax.annotation.PostConstruct
 import javax.jms.ConnectionFactory
-import kotlin.Throws
-import javax.jms.JMSException
 
 @Component
 class JMSProducer {
