@@ -21,7 +21,7 @@ import kotlin.collections.HashMap
 @Component
 class FunctionCommonUtils {
     @Autowired
-    private val env: Environment? = null
+    lateinit var env: Environment
 
     fun milisecondToLocaleDate(millis: Long): LocalDateTime? {
         val instant = Instant.ofEpochMilli(millis)
@@ -56,7 +56,7 @@ class FunctionCommonUtils {
 
     @Throws(Exception::class)
     fun getPropertyValue(key: String): String {
-        return env!!.getProperty(key) ?: throw Exception("Property $key null")
+        return env.getProperty(key) ?: throw Exception("Property $key null")
     }
 
     @Throws(Exception::class)
