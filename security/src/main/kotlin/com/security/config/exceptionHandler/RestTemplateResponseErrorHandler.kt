@@ -14,8 +14,7 @@ internal class RestTemplateResponseErrorHandler : ResponseErrorHandler {
 
     @Throws(IOException::class)
     override fun handleError(response: ClientHttpResponse) {
-        val msgError = ("StatusCode: " + response.statusCode.value() + " "
-                + response.statusCode.reasonPhrase)
+        val msgError = ("""StatusCode: ${response.statusCode.value()} ${response.statusCode.reasonPhrase}""")
         if (response.statusCode.series() == HttpStatus.Series.SERVER_ERROR) {
             throw IOException(msgError)
         } else if (response.statusCode.series() == HttpStatus.Series.CLIENT_ERROR) {
