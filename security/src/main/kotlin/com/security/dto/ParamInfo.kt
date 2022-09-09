@@ -1,6 +1,8 @@
 package com.security.dto
 
-class ParamInfo(
-    var name: String,
-    var age: Int
-)
+import java.io.Serializable
+
+class ParamInfo {
+    open var name: String? = null
+    open var age: Int? = null
+}

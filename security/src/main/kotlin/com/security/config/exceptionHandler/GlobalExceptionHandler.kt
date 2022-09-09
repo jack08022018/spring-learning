@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest
 
 @RestControllerAdvice
 class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
-    private val logger = LoggerFactory.getLogger(ApiController::class.java)
+    private val logger = LoggerFactory.getLogger(this.javaClass)
 
     @Autowired
     @Qualifier("customObjectMapper")

@@ -1,5 +1,6 @@
 package com.security.controller
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.security.config.jwt.JwtUtils
 import com.security.config.jwt.payload.LoginRequest
@@ -74,13 +75,35 @@ class ApiController {
     @Qualifier("customRestTemplate")
     lateinit var restTemplate: RestTemplate
 
-    @GetMapping(value = ["/rest"])
-    fun rest(@RequestBody params: String) {
-        try {
-            var paramsInfo = mapper.readValues(params, ParamInfo.javaClass)
-        }catch (e: Exception) {
-
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+//            var response = ParamInfo(name = "admin", age = 10)
+//            println(ObjectMapper().writeValueAsString(response))
         }
     }
+
+
+    @PostMapping(value = ["/rest"])
+    fun rest(@RequestBody params: String): RestResponse {
+        var response = RestResponse()
+        try {
+            var paramInfo = mapper.readValue(params, ParamInfo::class.java)
+            if(paramInfo.age!! > 10) {
+                throw Exception("too big")
+            }
+            response.status = 0
+        }catch (e: Exception) {
+            response.status = 1
+            response.messageError = e.message!!
+        }
+        return response
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    data class RestResponse (
+        var status: Int? = null,
+        var messageError: String? = null
+    )
 
 }
