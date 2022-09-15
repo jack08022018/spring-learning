@@ -12,6 +12,7 @@
     <file type="web" url="file://$PROJECT_DIR$/multi-db" />
     <file type="web" url="file://$PROJECT_DIR$/multidatasource" />
     <file type="web" url="file://$PROJECT_DIR$/security" />
+    <file type="web" url="file://$PROJECT_DIR$/spring-aop" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

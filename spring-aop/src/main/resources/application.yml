@@ -1,0 +1,17 @@
+server:
+  port: 9097
+  servlet.context-path: /aop
+  undertow.max-http-post-size: 0
+
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.web: DEBUG
+#    org.springframework.web.FilterChainProxy: DEBUG
+#    org.springframework.web.client.RestTemplate: DEBUG
+#    org.springframework.security: DEBUG
+#    org.springframework.boot.autoconfigure: INFO
+
+spring:
+  application.name: aop
+  main.allow-bean-definition-overriding: true
