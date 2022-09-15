@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Aspect
 @Configuration
 public class TestServiceAspect {
-    private Logger logger = LoggerFactory.getLogger(TestServiceAspect.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Around("execution(* com.springaop.controller.*.*(..))")
     public void AroundController(ProceedingJoinPoint joinPoint) throws Throwable {

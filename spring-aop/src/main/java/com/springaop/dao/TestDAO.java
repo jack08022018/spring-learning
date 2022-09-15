@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TestDAO {
 
-    private final Logger logger    = LoggerFactory.getLogger(TestDAO.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public String callDaoSuccess(){
         logger.info("callDaoSuccess is called");
