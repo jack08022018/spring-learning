@@ -1,0 +1,29 @@
+server:
+  port: 9095
+#  servlet.context-path: /graphql
+#  undertow.max-http-post-size: 0
+graphql.servlet.mapping: /apis/graphql
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.web.FilterChainProxy: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.boot.autoconfigure: INFO
+
+spring:
+  application.name: graphql
+  main.allow-bean-definition-overriding: true
+  jackson.default-property-inclusion: non_absent
+  security:
+    debug: false
+  jpa:
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/employees
+    username: root
+    password: 123456
