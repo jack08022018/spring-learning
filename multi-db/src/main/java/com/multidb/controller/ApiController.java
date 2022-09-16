@@ -42,13 +42,9 @@ public class ApiController {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    @PostMapping(value = "/addUser")
-    @Transactional(rollbackFor = Exception.class)
-    public void addUser() {
-//        productService.addUser();
-//        mongoTemplate.save(new GroceryItem("AAA", "Whole Wheat Biscuit", 5, "snacks"));
-        groceryItemRepository.save(new GroceryItem("AAA", "Whole Wheat Biscuit", 5, "snacks"));
-//        int a = 1/0;
+    @GetMapping(value = "/testSave")
+    public void testSave() {
+        apiService.saveEmployee();
     }
 
     @PostMapping(value = "/groceries")

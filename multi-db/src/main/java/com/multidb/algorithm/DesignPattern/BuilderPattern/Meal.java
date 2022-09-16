@@ -3,7 +3,7 @@ package com.multidb.algorithm.DesignPattern.BuilderPattern;
 import java.util.ArrayList;
 import java.util.List;
 
-import algorithm.DesignPattern.BuilderPattern.item.Item;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.item.Item;
 
 public class Meal {
 	private List<Item> items = new ArrayList<>();

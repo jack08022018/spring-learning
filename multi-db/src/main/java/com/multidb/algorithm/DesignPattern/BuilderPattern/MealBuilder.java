@@ -1,9 +1,9 @@
 package com.multidb.algorithm.DesignPattern.BuilderPattern;
 
-import algorithm.DesignPattern.BuilderPattern.item.Burger.ChickenBurger;
-import algorithm.DesignPattern.BuilderPattern.item.Burger.VegBurger;
-import algorithm.DesignPattern.BuilderPattern.item.ColdDrink.Coke;
-import algorithm.DesignPattern.BuilderPattern.item.ColdDrink.Pepsi;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.item.Burger.ChickenBurger;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.item.Burger.VegBurger;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.item.ColdDrink.Coke;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.item.ColdDrink.Pepsi;
 
 public class MealBuilder {
 	public Meal prepareVegMeal() {

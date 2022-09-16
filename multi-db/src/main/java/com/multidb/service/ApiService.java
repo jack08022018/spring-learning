@@ -9,4 +9,7 @@ import java.util.List;
 public interface ApiService {
     List<MovieRentalInfo> getRentalMovies(ModelMap params);
     List<EmployeeInfo> getEmployeeSalary(Integer amount);
+    void saveEmployee();
+    void saveSalary();
+    void testSave();
 }

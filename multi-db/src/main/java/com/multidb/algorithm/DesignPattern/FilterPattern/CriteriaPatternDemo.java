@@ -3,12 +3,12 @@ package com.multidb.algorithm.DesignPattern.FilterPattern;
 import java.util.ArrayList;
 import java.util.List;
 
-import algorithm.DesignPattern.FilterPattern.criteria.AndCriteria;
-import algorithm.DesignPattern.FilterPattern.criteria.Criteria;
-import algorithm.DesignPattern.FilterPattern.criteria.CriteriaFemale;
-import algorithm.DesignPattern.FilterPattern.criteria.CriteriaMale;
-import algorithm.DesignPattern.FilterPattern.criteria.CriteriaSingle;
-import algorithm.DesignPattern.FilterPattern.criteria.OrCriteria;
+import com.multidb.algorithm.DesignPattern.FilterPattern.criteria.AndCriteria;
+import com.multidb.algorithm.DesignPattern.FilterPattern.criteria.Criteria;
+import com.multidb.algorithm.DesignPattern.FilterPattern.criteria.CriteriaFemale;
+import com.multidb.algorithm.DesignPattern.FilterPattern.criteria.CriteriaMale;
+import com.multidb.algorithm.DesignPattern.FilterPattern.criteria.CriteriaSingle;
+import com.multidb.algorithm.DesignPattern.FilterPattern.criteria.OrCriteria;
 
 public class CriteriaPatternDemo {
 	public static void main(String[] args) {

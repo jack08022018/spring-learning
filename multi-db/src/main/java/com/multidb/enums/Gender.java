@@ -3,26 +3,20 @@ package com.multidb.enums;
 import java.util.Arrays;
 
 public enum Gender {
-    MALE("M", ""),
-    FE_MALE("f", "");
+    M( ""),
+    F( "");
 
-    private final String code;
     private final String detail;
 
-    Gender(String code, String detail) {
-        this.code = code;
+    Gender(String detail) {
         this.detail = detail;
     }
 
     public static Gender getEnum(String key) {
         return Arrays.stream(values())
-                .filter(s -> s.getCode().equals(key))
+                .filter(s -> s.toString().equals(key))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No matching Gender for [" + key + "]"));
-    }
-
-    public String getCode() {
-        return code;
     }
 
     public String getDetail() {

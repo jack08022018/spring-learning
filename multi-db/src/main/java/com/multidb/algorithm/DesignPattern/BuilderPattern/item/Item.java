@@ -1,6 +1,6 @@
 package com.multidb.algorithm.DesignPattern.BuilderPattern.item;
 
-import algorithm.DesignPattern.BuilderPattern.packing.Packing;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.packing.Packing;
 
 public interface Item {
 	public double price();

@@ -3,7 +3,7 @@ package com.multidb.algorithm.DesignPattern.FilterPattern.criteria;
 import java.util.ArrayList;
 import java.util.List;
 
-import algorithm.DesignPattern.FilterPattern.Person;
+import com.multidb.algorithm.DesignPattern.FilterPattern.Person;
 
 public class CriteriaSingle implements Criteria {
 	@Override

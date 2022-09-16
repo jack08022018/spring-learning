@@ -1,8 +1,8 @@
 package com.multidb.algorithm.DesignPattern.BuilderPattern.item.ColdDrink;
 
-import algorithm.DesignPattern.BuilderPattern.item.Item;
-import algorithm.DesignPattern.BuilderPattern.packing.Bottle;
-import algorithm.DesignPattern.BuilderPattern.packing.Packing;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.item.Item;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.packing.Bottle;
+import com.multidb.algorithm.DesignPattern.BuilderPattern.packing.Packing;
 
 public abstract class ColdDrink implements Item {
 
