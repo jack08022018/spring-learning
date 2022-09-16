@@ -9,37 +9,37 @@ import org.springframework.context.annotation.Configuration;
 
 @Aspect
 @Configuration
-public class TestServiceAspect {
+public class AspectConfig {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Around("execution(* com.springaop.controller.*.*(..))")
+    @Around("execution(* com.springaop.aspect.controller.*.*(..))")
     public void AroundController(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info("\n**********************************************************************************************************");
         joinPoint.proceed();
         logger.info("\n**********************************************************************************************************\n");
     }
 
-    @Before("execution(* com.springaop.dao.TestDAO.callDaoSuccess(..))")
+    @Before("execution(* com.springaop.aspect.dao.TestDAO.callDaoSuccess(..))")
     public void before(JoinPoint joinPoint) {
         logger.info(" before called " + joinPoint.toString());
     }
 
-    @After("execution(* com.springaop.dao.*.*(..))")
+    @After("execution(* com.springaop.aspect.dao.*.*(..))")
     public void after(JoinPoint joinPoint) {
         logger.info(" after called " + joinPoint.toString());
     }
 
-    @AfterReturning("execution(* com.springaop.dao.*.*(..))")
+    @AfterReturning("execution(* com.springaop.aspect.dao.*.*(..))")
     public void afterReturning(JoinPoint joinPoint) {
         logger.info(" afterReturning called " + joinPoint.toString());
     }
 
-    @AfterThrowing("execution(* com.springaop.dao.*.*(..))")
+    @AfterThrowing("execution(* com.springaop.aspect.dao.*.*(..))")
     public void afterThrowing(JoinPoint joinPoint) {
         logger.info(" afterThrowing called " + joinPoint.toString());
     }
 
-    @Around("execution(* com.springaop.dao.*.*(..))")
+    @Around("execution(* com.springaop.aspect.dao.*.*(..))")
     public void around(ProceedingJoinPoint joinPoint) throws Throwable {
 
         Long startTime = System.currentTimeMillis();

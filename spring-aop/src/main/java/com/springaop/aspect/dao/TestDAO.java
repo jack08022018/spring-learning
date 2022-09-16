@@ -1,4 +1,4 @@
-package com.springaop.dao;
+package com.springaop.aspect.dao;
 
 import com.springaop.aspect.TrackTime;
 import org.slf4j.Logger;

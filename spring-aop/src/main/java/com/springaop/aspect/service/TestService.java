@@ -1,6 +1,6 @@
-package com.springaop.service;
+package com.springaop.aspect.service;
 
-import com.springaop.dao.TestDAO;
+import com.springaop.aspect.dao.TestDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

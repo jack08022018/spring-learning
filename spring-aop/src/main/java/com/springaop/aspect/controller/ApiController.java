@@ -1,7 +1,7 @@
-package com.springaop.controller;
+package com.springaop.aspect.controller;
 
 
-import com.springaop.service.TestService;
+import com.springaop.aspect.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
