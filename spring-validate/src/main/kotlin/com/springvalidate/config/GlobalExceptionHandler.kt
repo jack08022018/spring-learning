@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.context.request.ServletWebRequest
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
@@ -53,7 +54,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             timestamp = functionCommonUtils.localDateToString(LocalDateTime.now(), "yyyy-MM-dd HH:mm:ss"),
             status = HttpStatus.BAD_REQUEST.value(),
             message = e.bindingResult.allErrors.associateBy({it -> (it as FieldError).field}, {it.defaultMessage}),
-            path = request.contextPath
+            path = (request as ServletWebRequest).request.requestURI
         )
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)

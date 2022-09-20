@@ -2,6 +2,7 @@ package com.springvalidate.dto
 
 import com.springvalidate.config.customValidate.CapitalizedConstraint
 import org.hibernate.validator.constraints.Length
+import javax.validation.Valid
 import javax.validation.constraints.*
 
 
@@ -23,4 +24,19 @@ class PersonRequest {
 
     @Size(min = 2, max = 100, message = "Phải có ít nhất 2 sở thích!")
     var hobbies: List<String>? = null
+
+    @NotNull(message = "Nghề nghiệp null")
+    @Valid
+    var career: Career? = null
 }
+
+data class Career (
+    @NotNull(message = "Title null")
+    @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+", message = "Title chứa kí tự đặc biệt!")
+    @Length(min = 5, max = 200, message = "Title phải từ 5 đến 50 kí tự!")
+    var title: String? = null,
+
+    @DecimalMin(value = "0", inclusive = false, message = "salary phải là số dương!")
+    @DecimalMax(value = "10000", inclusive = true, message = "salary không được cao quá 10000 usd!")
+    var salary: Int? = null
+)
