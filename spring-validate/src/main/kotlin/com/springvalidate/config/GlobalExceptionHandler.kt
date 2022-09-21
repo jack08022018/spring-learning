@@ -17,7 +17,10 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import java.time.LocalDateTime
+import java.util.stream.Collectors
 import javax.servlet.http.HttpServletRequest
+import javax.validation.ConstraintViolation
+import javax.validation.ConstraintViolationException
 
 
 @RestControllerAdvice
@@ -54,6 +57,23 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             timestamp = functionCommonUtils.localDateToString(LocalDateTime.now(), "yyyy-MM-dd HH:mm:ss"),
             status = HttpStatus.BAD_REQUEST.value(),
             message = e.bindingResult.allErrors.associateBy({it -> (it as FieldError).field}, {it.defaultMessage}),
+            path = (request as ServletWebRequest).request.requestURI
+        )
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(response)
+    }
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun handleConstraintViolationException(e: ConstraintViolationException, request: WebRequest?): ResponseEntity<Any?>? {
+        logger.error("handleConstraintViolationException\n", e)
+        val messages: List<String> = e.getConstraintViolations()
+            .map { obj: ConstraintViolation<*> -> obj.message }
+            .toList()
+        val response = ErrorResponse(
+            timestamp = functionCommonUtils.localDateToString(LocalDateTime.now(), "yyyy-MM-dd HH:mm:ss"),
+            status = HttpStatus.BAD_REQUEST.value(),
+            message = messages,
             path = (request as ServletWebRequest).request.requestURI
         )
         return ResponseEntity

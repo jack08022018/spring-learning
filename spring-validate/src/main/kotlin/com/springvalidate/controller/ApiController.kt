@@ -5,13 +5,14 @@ import com.springvalidate.dto.PersonRequest
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.validation.annotation.Validated
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.Max
+import javax.validation.constraints.Min
 
 
+@Validated
 @RestController
 @RequestMapping(value = ["/api"])
 class ApiController {
@@ -24,6 +25,17 @@ class ApiController {
 
     @PostMapping("/createPerson")
     fun createPerson(@Valid @RequestBody request: PersonRequest) {
+
+    }
+
+    @PostMapping("/dept/{empId}/{depthId}")
+    fun updateEmpDepartment(
+        @PathVariable("empId") @Min(10, message = "empId >= 10") @Max(100, message = "empId <= 100")
+        emp_id: Int?,
+
+        @PathVariable("depthId") @Min(1001, message = "depthId >= 1001")
+        depthId: Int?
+    ) {
 
     }
 

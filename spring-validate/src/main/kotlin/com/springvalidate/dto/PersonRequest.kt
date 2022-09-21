@@ -7,7 +7,7 @@ import javax.validation.constraints.*
 
 
 class PersonRequest {
-    @CapitalizedConstraint
+    @CapitalizedConstraint(message = "Chữ đầu tiên phải được in hoa!")
     @NotNull(message = "Tên bị null!")
     @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+", message = "Tên chứa kí tự đặc biệt!")
     @Length(min = 3, max = 200, message = "Tên phải từ 3 đến 200 kí tự!")
