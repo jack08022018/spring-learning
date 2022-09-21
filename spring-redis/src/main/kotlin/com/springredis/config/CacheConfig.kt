@@ -25,11 +25,23 @@ class CacheConfig {
             builder
                 .withCacheConfiguration(
                     "itemCache",
-                    RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10))
+                    RedisCacheConfiguration.defaultCacheConfig()
+                        .entryTtl(Duration.ofMinutes(10))
                 )
                 .withCacheConfiguration(
                     "employeeWithSalary",
-                    RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5))
+                    RedisCacheConfiguration.defaultCacheConfig()
+                        .entryTtl(Duration.ofMinutes(60))
+                )
+                .withCacheConfiguration(
+                    "salary",
+                    RedisCacheConfiguration.defaultCacheConfig()
+                        .entryTtl(Duration.ofMinutes(120))
+                )
+                .withCacheConfiguration(
+                    "employee",
+                    RedisCacheConfiguration.defaultCacheConfig()
+                        .entryTtl(Duration.ofMinutes(120))
                 )
         }
     }

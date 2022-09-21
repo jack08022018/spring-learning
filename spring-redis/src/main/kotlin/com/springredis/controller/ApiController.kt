@@ -61,4 +61,9 @@ class ApiController {
         cacheManager.getCache(cacheName)!!.clear()
     }
 
+    @GetMapping("/handleData")
+    fun handleData(): List<*> {
+        return salaryService.handleData()
+    }
+
 }

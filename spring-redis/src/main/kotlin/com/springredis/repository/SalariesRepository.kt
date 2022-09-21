@@ -32,10 +32,16 @@ interface SalariesRepository : JpaRepository<SalariesEntity, Int> {
         FROM salaries A
             INNER JOIN employees B ON B.emp_no = A.emp_no
         WHERE A.salary < :salary
-            AND B.gender = :gender
         ORDER BY A.salary
     """)
     fun getEmployeeWithSalary(
         @Param("salary") salary: Int,
-        @Param("gender") gender: String): List<EmployeeInfo>
+       ): List<EmployeeInfo>
+
+    @Query(nativeQuery = true, value = """
+        SELECT *
+        FROM salaries A 
+        WHERE A.emp_no in (10001,10002)
+    """)
+    fun getSalaryTest(): List<SalariesEntity>
 }
