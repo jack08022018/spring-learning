@@ -19,13 +19,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "employees")
 public class EmployeeEntity {
-//    `employees` (
-//            `emp_no` INT(10) NOT NULL,
-//	`birth_date` DATE NOT NULL,
-//            `first_name` VARCHAR(14) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-//            `last_name` VARCHAR(16) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-//            `gender` ENUM('M','F') NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-//            `hire_date` DATE NOT NULL,
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "emp_no")
@@ -54,4 +47,8 @@ public class EmployeeEntity {
     @Transient
     @JsonProperty
     private Integer currentPage;
+
+    @Transient
+    @JsonProperty
+    private Integer salary;
 }

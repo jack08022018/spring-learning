@@ -19,4 +19,11 @@ public interface SalariesRepository extends JpaRepository<SalariesEntity, Intege
         ORDER BY A.salary
     """)
     List<EmployeeInfo> getEmployeeSalary(@Param("amount") Integer amount);
+
+    @Query(nativeQuery = true, value = """
+        SELECT *
+        FROM salaries A 
+        WHERE A.emp_no in (10001,10002)
+    """)
+    List<SalariesEntity> getSalaryTest();
 }

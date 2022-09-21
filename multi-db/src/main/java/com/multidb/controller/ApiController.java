@@ -73,4 +73,9 @@ public class ApiController {
         return apiService.getEmployeeSalary((Integer) params.get("amount"));
     }
 
+    @GetMapping(value = "/handleData")
+    public List<?> handleData() throws JsonProcessingException {
+        return apiService.handleData();
+    }
+
 }

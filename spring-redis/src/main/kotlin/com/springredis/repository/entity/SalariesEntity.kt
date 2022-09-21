@@ -14,7 +14,7 @@ data class SalariesEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "emp_no")
-    var empNo: Int? = 0,
+    var empNo: Int,
 
     @Column(name = "salary")
     var salary: Int? = null,

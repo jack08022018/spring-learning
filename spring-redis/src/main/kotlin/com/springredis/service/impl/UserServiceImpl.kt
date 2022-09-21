@@ -2,6 +2,7 @@ package com.springredis.service.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.springredis.common.FunctionCommonUtils
+import com.springredis.repository.entity.SalariesEntity
 import com.springredis.repository.entity.UserEntity
 import com.springredis.service.UserService
 import org.slf4j.Logger

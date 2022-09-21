@@ -1,5 +1,6 @@
 package com.multidb.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.multidb.repository.employee.dto.EmployeeInfo;
 import com.multidb.repository.sakila.dto.MovieRentalInfo;
 import org.springframework.ui.ModelMap;
@@ -12,4 +13,6 @@ public interface ApiService {
     void saveEmployee();
     void saveSalary();
     void testSave();
+
+    List<?> handleData() throws JsonProcessingException;
 }
