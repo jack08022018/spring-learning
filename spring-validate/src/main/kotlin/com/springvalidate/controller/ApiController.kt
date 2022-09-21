@@ -17,6 +17,8 @@ import javax.validation.constraints.Min
 @RequestMapping(value = ["/api"])
 class ApiController {
 
+//    https://fullstackcode.dev/2022/05/10/complete-guide-to-spring-boot-validation/
+
     private val logger = LoggerFactory.getLogger(this.javaClass)
 
     @Autowired
