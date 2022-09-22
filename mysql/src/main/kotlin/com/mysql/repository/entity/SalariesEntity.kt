@@ -9,20 +9,20 @@ import javax.persistence.*
 @Entity
 @Table(name = "salaries")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-open class SalariesEntity (
+data class SalariesEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "emp_no")
-    open var empNo: Int? = 0,
+    var empNo: Int,
 
     @Column(name = "salary")
-    open var salary: Int? = null,
+    var salary: Int? = null,
 
     @Column(name = "from_date")
-    open var fromDate: LocalDate? = null,
+    var fromDate: LocalDate? = null,
 
     @Column(name = "to_date")
-    open var toDate: LocalDate? = null,
+    var toDate: LocalDate? = null,
 
 //    @Column(name = "gender")
 //    @Enumerated(EnumType.ORDINAL)
@@ -33,10 +33,10 @@ open class SalariesEntity (
     //    private Gender gender;
     @Transient
     @JsonProperty
-    open var pageSize: Int? = null,
+    var pageSize: Int? = null,
 
     @Transient
     @JsonProperty
-    open var currentPage: Int? = null
+    var currentPage: Int? = null
 
 ) : Serializable

@@ -1,5 +1,6 @@
 package com.springredis.common
 
+import io.lettuce.core.cluster.topology.TopologyComparators
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
@@ -16,8 +17,9 @@ import java.util.function.Predicate
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
+
 @Component
-class FunctionCommonUtils {
+object FunctionCommonUtils {
     @Autowired
     private val env: Environment? = null
 

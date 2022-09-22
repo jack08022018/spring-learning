@@ -19,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec
 import kotlin.collections.HashMap
 
 @Component
-class FunctionCommonUtils {
+object FunctionCommonUtils {
     @Autowired
     private val env: Environment? = null
 

@@ -99,4 +99,5 @@ public class ApiServiceImpl implements ApiService {
                 .collect(Collectors.groupingBy(SalariesEntity::getEmpNo));
         return result;
     }
+
 }

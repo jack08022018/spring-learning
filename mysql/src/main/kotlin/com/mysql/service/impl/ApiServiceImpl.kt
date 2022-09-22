@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.mysql.enums.Gender
 import com.mysql.repository.EmployeeRepository
 import com.mysql.repository.SalariesRepository
+import com.mysql.repository.entity.EmployeeEntity
 import com.mysql.service.ApiService
 import com.mysql.service.EmployeeService
 import com.mysql.service.SalaryService
@@ -13,11 +14,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
-import java.lang.RuntimeException
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 
 @Service
@@ -37,10 +34,44 @@ class ApiServiceImpl : ApiService {
     @Autowired
     lateinit var titleService: TitleService
 
+    @Autowired
+    lateinit var salariesRepository: SalariesRepository
+
+    @Autowired
+    lateinit var employeeRepository: EmployeeRepository
+
     @Transactional
     override fun testSave() {
         employeeService.saveEmployee(Gender.M)
         titleService.saveTitle("aaa")
         salaryService.saveSalary(40000)
+    }
+
+    override fun handleData(): List<*> {
+        val salaryList = salariesRepository.findAll()
+
+        val employeeData = employeeRepository.findAll()
+        val result = employeeData.take(10).toMutableList()
+        result.add(EmployeeEntity(empNo = 9911))
+
+        val start = System.currentTimeMillis()
+        println("start: $start ********************************")
+
+        val salaryMap: Map<Int, List<Int?>> = salaryList
+            .groupBy({ it.empNo }, { it.salary })
+
+//        var salaryTree: TreeMap<Int, List<SalariesEntity>> = TreeMap(salaryMap)
+
+        for (emp in result) {
+//            emp.salary = salaryList
+//                .filter { it.empNo == emp.empNo }
+//                ?.sumOf { it.salary!!}
+            emp.salary = salaryMap[emp.empNo]?.sumOf { it!!}
+        }
+
+        val end = System.currentTimeMillis()
+        println("Total time: ${end - start}")
+        println("end: $end ********************************")
+        return result
     }
 }

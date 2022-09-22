@@ -26,4 +26,9 @@ class ApiController {
         apiService.testSave()
     }
 
+    @GetMapping("/handleData")
+    fun handleData(): List<*> {
+        return apiService.handleData()
+    }
+
 }
