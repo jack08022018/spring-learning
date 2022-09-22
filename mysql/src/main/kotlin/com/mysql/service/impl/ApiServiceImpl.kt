@@ -57,16 +57,14 @@ class ApiServiceImpl : ApiService {
         val start = System.currentTimeMillis()
         println("start: $start ********************************")
 
-        val salaryMap: Map<Int, List<Int?>> = salaryList
-            .groupBy({ it.empNo }, { it.salary })
+        val salaryMap: Map<Int, List<Int>> = salaryList
+            .filter { it.salary != null }
+            .groupBy({ it.empNo }, { it.salary!! })
 
 //        var salaryTree: TreeMap<Int, List<SalariesEntity>> = TreeMap(salaryMap)
 
         for (emp in result) {
-//            emp.salary = salaryList
-//                .filter { it.empNo == emp.empNo }
-//                ?.sumOf { it.salary!!}
-            emp.salary = salaryMap[emp.empNo]?.sumOf { it!!}
+            emp.salary = salaryMap[emp.empNo]?.sumOf { it }
         }
 
         val end = System.currentTimeMillis()

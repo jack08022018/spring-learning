@@ -22,7 +22,7 @@ class BeanConfig {
         mapper.registerModule(JavaTimeModule())
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
         return mapper
     }
 
