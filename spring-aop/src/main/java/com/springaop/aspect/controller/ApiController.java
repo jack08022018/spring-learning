@@ -20,6 +20,7 @@ public class ApiController {
 
     @GetMapping(value = "/callDaoSuccess")
     public void callDaoSuccess() {
+        System.out.println("PROXY (testService): " + testService.getClass().getName());
         testService.callDaoSuccess();
     }
 

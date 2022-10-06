@@ -7,7 +7,8 @@ public abstract class ShapeDecorator implements Shape {
 		this.decoratedShape = decoratedShape;
 	}
 
-	public void draw(){
-		decoratedShape.draw();
-	}	
+//	public void draw(){
+//		decoratedShape.draw();
+//	}
+//	abstract public void draw();
 }
