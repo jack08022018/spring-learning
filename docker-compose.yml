@@ -1,0 +1,25 @@
+version: '2'
+services:
+  spring-aop-dev:
+    container_name: spring-aop-dev
+    build:
+      context: spring-aop
+      dockerfile: Dockerfile
+    image: spring-aop-dev:latest
+    ports:
+      - 8080:9097
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+#    networks:
+#      - spring-cloud-network
+
+  spring-aop-prod:
+    container_name: spring-aop-prod
+    build:
+      context: spring-aop
+      dockerfile: Dockerfile
+    image: spring-aop-prod:latest
+    ports:
+      - 8081:9097
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod

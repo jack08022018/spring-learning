@@ -21,7 +21,7 @@ import kotlin.collections.HashMap
 @Component
 object FunctionCommonUtils {
     @Autowired
-    private val env: Environment? = null
+    val env: Environment? = null
 
     fun milisecondToLocaleDate(millis: Long): LocalDateTime? {
         val instant = Instant.ofEpochMilli(millis)

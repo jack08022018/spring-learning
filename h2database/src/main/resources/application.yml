@@ -2,7 +2,6 @@ server:
   port: 9093
   servlet.context-path: /h2
   undertow.max-http-post-size: 0
-
 logging:
   level:
     root: INFO
@@ -11,8 +10,9 @@ logging:
     org.springframework.web.client.RestTemplate: DEBUG
     org.springframework.security: DEBUG
     org.springframework.boot.autoconfigure: INFO
-
 spring:
+  profiles:
+    active: dev
   application.name: h2
   main.allow-bean-definition-overriding: true
   thymeleaf:
