@@ -1,6 +1,6 @@
 package com.springaop.algorithm.DesignPattern.AbtractFactoryPattern;
 
-public class WinFactory extends GUIFactory {
+public class WinFactory extends GuiFactory {
     @Override
     public Button createButton() {
         return new WinButton();

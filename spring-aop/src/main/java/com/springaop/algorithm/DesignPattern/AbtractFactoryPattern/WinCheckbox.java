@@ -3,6 +3,6 @@ package com.springaop.algorithm.DesignPattern.AbtractFactoryPattern;
 public class WinCheckbox implements Checkbox {
     @Override
     public void pain() {
-        System.out.println("Render a checkbox in Window style.");
+        System.out.println("WIN style checkbox");
     }
 }
