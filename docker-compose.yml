@@ -7,7 +7,7 @@ services:
     container_name: spring-aop
     image: spring-aop:jack
     ports:
-      - 9097:9097
+      - "9097:9097"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
 #    networks:
@@ -20,6 +20,6 @@ services:
     container_name: h2database
     image: h2database:jack
     ports:
-      - 9093:9093
+      - "9093:9093"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
