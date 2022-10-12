@@ -1,10 +1,10 @@
 version: '2'
 services:
   spring-aop:
-    container_name: spring-aop
     build:
       context: spring-aop
       dockerfile: Dockerfile
+    container_name: spring-aop
     image: spring-aop:jack
     ports:
       - 9097:9097
@@ -14,10 +14,10 @@ services:
 #      - spring-cloud-network
 
   h2database:
-    container_name: h2database
     build:
       context: h2database
       dockerfile: Dockerfile
+    container_name: h2database
     image: h2database:jack
     ports:
       - 9093:9093
