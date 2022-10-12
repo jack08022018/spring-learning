@@ -5,7 +5,7 @@ services:
     build:
       context: spring-aop
       dockerfile: Dockerfile
-    image: spring-aop:latest
+    image: spring-aop:jack
     ports:
       - 9097:9097
     environment:
@@ -18,7 +18,7 @@ services:
     build:
       context: h2database
       dockerfile: Dockerfile
-    image: h2database:latest
+    image: h2database:jack
     ports:
       - 9093:9093
     environment:
