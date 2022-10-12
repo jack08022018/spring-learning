@@ -19,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 @Component
-object FunctionCommonUtils {
+class FunctionCommonUtils {
     @Autowired
     private val env: Environment? = null
 
