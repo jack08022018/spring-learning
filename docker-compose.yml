@@ -1,25 +1,25 @@
 version: '2'
 services:
-  spring-aop-dev:
-    container_name: spring-aop-dev
+  spring-aop:
+    container_name: spring-aop
     build:
       context: spring-aop
       dockerfile: Dockerfile
-    image: spring-aop-dev:latest
+    image: spring-aop:latest
     ports:
-      - 8080:9097
+      - 9097:9097
     environment:
       - SPRING_PROFILES_ACTIVE=dev
 #    networks:
 #      - spring-cloud-network
 
-  spring-aop-prod:
-    container_name: spring-aop-prod
+  h2database:
+    container_name: h2database
     build:
-      context: spring-aop
+      context: h2database
       dockerfile: Dockerfile
-    image: spring-aop-prod:latest
+    image: h2database:latest
     ports:
-      - 8081:9097
+      - 9093:9093
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_PROFILES_ACTIVE=dev
