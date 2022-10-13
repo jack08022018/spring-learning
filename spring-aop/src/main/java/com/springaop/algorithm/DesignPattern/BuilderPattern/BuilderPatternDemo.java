@@ -2,8 +2,9 @@ package com.springaop.algorithm.DesignPattern.BuilderPattern;
 
 public class BuilderPatternDemo {
 	public static void main(String[] args) {
-		MealBuilder builder = new MealBuilder();
-		Meal nonVegMeal = builder.prepareNonVegMeal();
+		Meal nonVegMeal = new NonVegMealBuilder()
+				.prepareMeal()
+				.build();
 		System.out.println("Non Veg Meal");
 		System.out.println("--------------------------");
 		nonVegMeal.showItems();
@@ -11,8 +12,15 @@ public class BuilderPatternDemo {
 		
 		System.out.println("\nVeg Meal");
 		System.out.println("--------------------------");
-		Meal vegMeal = builder.prepareVegMeal();
+		Meal vegMeal = new VegMealBuilder()
+				.prepareMeal()
+				.build();
 		vegMeal.showItems();
 		System.out.println("  Cost: " + vegMeal.getCost());
+
+		Computer computer = new Computer.Builder()
+				.setRAM("2 GB")
+				.setHDD("500 GB")
+				.build();
 	}
 }

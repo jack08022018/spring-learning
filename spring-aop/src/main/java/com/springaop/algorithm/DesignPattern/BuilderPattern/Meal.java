@@ -19,7 +19,12 @@ public class Meal {
 	}
 	public void showItems() {
 		for (Item item : items) {
-			System.out.println("  - " + item.name() + ": " + item.packing().pack());
+			String name = item.name();
+			String pack = item.packing().pack();
+			System.out.println("""
+				- {name}: {pack}"""
+				.replaceAll("\\{name}", name)
+				.replaceAll("\\{pack}", pack));
 		}
 	}
 }
