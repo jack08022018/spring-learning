@@ -27,4 +27,11 @@ public class Meal {
 				.replaceAll("\\{pack}", pack));
 		}
 	}
+
+	void show(String name) {
+		System.out.println(name);
+		System.out.println("--------------------------");
+		showItems();
+		System.out.println("  Cost: " + getCost());
+	}
 }

@@ -1,5 +1,5 @@
 package com.springaop.algorithm.DesignPattern.AAA;
 
-public interface Animal {
-    void describe();
+public enum CarType {
+    SUV, SPORT_CAR
 }
