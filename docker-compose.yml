@@ -1,25 +1,41 @@
 version: '2'
+volumes:
+  static-share-volume:
+    external: true
 services:
-  spring-aop:
-    build:
-      context: spring-aop
-      dockerfile: Dockerfile
-    container_name: spring-aop
-    image: spring-aop:jack
-    ports:
-      - "9097:9097"
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-#    networks:
-#      - spring-cloud-network
+#  spring-aop:
+#    build:
+#      context: spring-aop
+#      dockerfile: Dockerfile
+#    container_name: spring-aop
+#    image: spring-aop:jack
+#    ports:
+#      - "9097:9097"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
+##    networks:
+##      - spring-cloud-network
+#
+#  h2database:
+#    build:
+#      context: h2database
+#      dockerfile: Dockerfile
+#    container_name: h2database
+#    image: h2database:jack
+#    ports:
+#      - "9093:9093"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
 
-  h2database:
+  itext:
     build:
-      context: h2database
+      context: itext
       dockerfile: Dockerfile
-    container_name: h2database
-    image: h2database:jack
+    container_name: itext
+    image: itext:jack
     ports:
-      - "9093:9093"
+      - "9091:9091"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+    volumes:
+      - static-share-volume:/static-volume

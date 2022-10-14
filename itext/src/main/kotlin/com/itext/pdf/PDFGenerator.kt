@@ -36,8 +36,8 @@ class PDFGenerator {
             document.add(Paragraph("\n\n\n"))
             for (i in 0..10) {
                 PdfService.buildPartA(document, pdfCommonUtils)
-                PdfService.buildPartB(document, pdfCommonUtils)
-                PdfService.buildCaution(document, pdfCommonUtils)
+//                PdfService.buildPartB(document, pdfCommonUtils)
+//                PdfService.buildCaution(document, pdfCommonUtils)
 //                document.add(AreaBreak(AreaBreakType.NEXT_PAGE))
             }
             Footer.addPagingToFooter(document)
