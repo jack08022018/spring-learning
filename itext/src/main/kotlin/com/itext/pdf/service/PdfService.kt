@@ -75,6 +75,7 @@ object PdfService {
                 <b>LƯU Ý:</b> Việc kê khai đầy đủ và trung thực các thông tin dưới đây sẽ quyết định tính hiệu lực của hợp đồng bảo hiểm và việc chi trả các quyền lợi bảo hiểm sau này của Quý khách.
             </div>
         """
+
         document.add(pdfCommonUtils.getElementFromHtml(html) as Div)
     }
 

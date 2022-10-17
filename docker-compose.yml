@@ -10,7 +10,7 @@ services:
 #    container_name: spring-aop
 #    image: spring-aop:jack
 #    ports:
-#      - "9100:9100"
+#      - "9190:9190"
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=dev
 ##    networks:
