@@ -19,6 +19,13 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Intege
     """)
     List<EmployeeEntity> getEmployeeTest();
 
+    @Query(nativeQuery = true, value = """
+        SELECT *
+        FROM employees
+        WHERE :first_name is null or :first_name = '' or first_name like %:first_name%
+    """)
+    List<EmployeeEntity> getEmployeeLuci(@Param("first_name") String first_name);
+
     @Query(nativeQuery = true, value = ""
             +   "SELECT A.* "
             +   "FROM employees A "

@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,10 +49,10 @@ public class ApiController {
         apiService.saveEmployee();
     }
 
-    @PostMapping(value = "/groceries")
-    public <T> List<T> groceries() {
-        return (List<T>) groceryItemRepository.findAll();
-    }
+//    @PostMapping(value = "/groceries")
+//    public <T> List<T> groceries() {
+//        return (List<T>) groceryItemRepository.findAll();
+//    }
 
     @PostMapping("/getProductData")
     JsonNode getProductData() throws JsonProcessingException {
@@ -84,6 +83,11 @@ public class ApiController {
     @PostMapping(value = "/getProductList")
     public Page<EmployeeEntity> getUserDetailsList(@RequestBody EmployeeEntity dto) {
         return apiService.getProductList(dto);
+    }
+
+    @GetMapping(value = "/getEmployeeLuci")
+    public List<?> getEmployeeLuci(@RequestParam("name") String name)  {
+        return apiService.getEmployeeLuci(name);
     }
 
 }
