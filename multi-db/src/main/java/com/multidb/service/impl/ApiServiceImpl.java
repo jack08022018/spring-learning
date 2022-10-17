@@ -13,6 +13,9 @@ import com.multidb.repository.sakila.dto.MovieRentalInfo;
 import com.multidb.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -98,6 +101,12 @@ public class ApiServiceImpl implements ApiService {
         Map<Integer, List<SalariesEntity>> salaryMap = salaryData.stream()
                 .collect(Collectors.groupingBy(SalariesEntity::getEmpNo));
         return result;
+    }
+
+    @Override
+    public Page<EmployeeEntity> getProductList(EmployeeEntity dto) {
+        Pageable pageable = PageRequest.of(dto.getCurrentPage(), dto.getPageSize());
+        return employeeRepository.getProductList(dto, pageable);
     }
 
 }

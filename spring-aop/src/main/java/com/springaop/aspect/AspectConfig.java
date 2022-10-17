@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 public class AspectConfig {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Around("execution(* com.springaop.aspect.controller.*.*(..))")
+//    around,before,after: advice
+//    "* com.springaop.aspect.controller.*.*(..))": Pointcut
+//    callDaoFailed(): joinPoint
+    @Around("execution(* com.springaop.aspect.controller.*.*(..))") //Pointcut
     public void AroundController(ProceedingJoinPoint joinPoint) throws Throwable {
         logger.info("\n**********************************************************************************************************");
         joinPoint.proceed();

@@ -4,7 +4,9 @@ package com.multidb.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.multidb.repository.employee.EmployeeRepository;
 import com.multidb.repository.employee.dto.EmployeeInfo;
+import com.multidb.repository.employee.entity.EmployeeEntity;
 import com.multidb.repository.mongoLocal.GroceryItemRepository;
 import com.multidb.repository.mongoLocal.entity.GroceryItem;
 import com.multidb.repository.sakila.dto.MovieRentalInfo;
@@ -15,6 +17,7 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -76,6 +79,11 @@ public class ApiController {
     @GetMapping(value = "/handleData")
     public List<?> handleData() throws JsonProcessingException {
         return apiService.handleData();
+    }
+
+    @PostMapping(value = "/getProductList")
+    public Page<EmployeeEntity> getUserDetailsList(@RequestBody EmployeeEntity dto) {
+        return apiService.getProductList(dto);
     }
 
 }

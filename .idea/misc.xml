@@ -16,6 +16,7 @@
     <file type="web" url="file://$PROJECT_DIR$/spring-aop" />
     <file type="web" url="file://$PROJECT_DIR$/spring-redis" />
     <file type="web" url="file://$PROJECT_DIR$/spring-validate" />
+    <file type="web" url="file://$PROJECT_DIR$/swagger2" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

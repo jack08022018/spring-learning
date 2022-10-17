@@ -1,5 +1,5 @@
 server:
-  port: 9097
+  port: 9100
   servlet.context-path: /aop
   undertow.max-http-post-size: 0
 spring:
