@@ -1,6 +1,8 @@
-package com.springaop.algorithm.DesignPattern.TemplateMethod;
+package com.springaop.algorithm.DesignPattern.TemplateMethod.obj;
 
-public class Dota extends Game {
+import com.springaop.algorithm.DesignPattern.TemplateMethod.GameplayTemplate;
+
+public class Dota extends GameplayTemplate {
     @Override
     protected void initialize() {
         System.out.println("Init dota");

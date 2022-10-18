@@ -1,6 +1,8 @@
-package com.springaop.algorithm.DesignPattern.TemplateMethod;
+package com.springaop.algorithm.DesignPattern.TemplateMethod.obj;
 
-public class Football extends Game {
+import com.springaop.algorithm.DesignPattern.TemplateMethod.GameplayTemplate;
+
+public class Football extends GameplayTemplate {
     @Override
     protected void initialize() {
         System.out.println("Init football");
