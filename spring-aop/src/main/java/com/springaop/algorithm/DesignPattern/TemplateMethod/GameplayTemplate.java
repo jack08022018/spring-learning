@@ -1,6 +1,6 @@
 package com.springaop.algorithm.DesignPattern.TemplateMethod;
 
-public abstract class Game {
+public abstract class GameplayTemplate {
     abstract protected void initialize();
     abstract protected void startPlay();
     abstract protected void endPlay();
