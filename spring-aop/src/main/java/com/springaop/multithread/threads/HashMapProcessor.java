@@ -26,6 +26,8 @@ public class HashMapProcessor implements Runnable {
             arr[i] = arr[i] + ":" + name;
         }
     }
+
+//    without synchronized thread not safe
 //    private void addThreadName(int i, String name) {
 //        strArr[i] = strArr[i] +":"+name;
 //    }
