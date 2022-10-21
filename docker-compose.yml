@@ -27,15 +27,26 @@ services:
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=dev
 
-  itext:
+#  itext:
+#    build:
+#      context: itext
+#      dockerfile: Dockerfile
+#    container_name: itext
+#    image: itext:jack
+#    ports:
+#      - "9091:9091"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=dev
+#    volumes:
+#      - static-share-volume:/static-volume
+
+  mysql:
     build:
-      context: itext
+      context: mysql
       dockerfile: Dockerfile
-    container_name: itext
-    image: itext:jack
+    container_name: mysql
+    image: mysql:jack
     ports:
-      - "9091:9091"
+      - "9097:9097"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-    volumes:
-      - static-share-volume:/static-volume
