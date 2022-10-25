@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
@@ -58,6 +59,24 @@ public class ApiController {
     @GetMapping("/filter")
     public Page<Book> filterBooks(@ParameterObject Pageable pageable) {
         return null;
+    }
+
+    @PostMapping("/getUser")
+    public ModelMap getUser() throws InterruptedException {
+        Thread.sleep(2000);
+        ModelMap result = new ModelMap();
+        result.put("id", 1);
+        result.put("name", "King");
+        return result;
+    }
+
+    @PostMapping("/getClient")
+    public ModelMap getClient() throws InterruptedException {
+        Thread.sleep(3000);
+        ModelMap result = new ModelMap();
+        result.put("clientCode", 1001001);
+        result.put("clientName", "PMH");
+        return result;
     }
 
 }
