@@ -1,6 +1,6 @@
 package com.multithread.common.multithread;
 
-import com.springaop.algorithm.multithread.threads.CompletableFutureHandler;
+import com.multithread.common.multithread.threads.CompletableFutureHandler;
 
 public class CompletableFutureDemo {
     public static void main(String[] args) throws Exception {

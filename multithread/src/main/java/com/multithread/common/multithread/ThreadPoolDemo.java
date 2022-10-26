@@ -1,9 +1,9 @@
 package com.multithread.common.multithread;
 
-import com.springaop.algorithm.multithread.threads.MyCallable;
-import com.springaop.algorithm.multithread.threads.MyMonitorThread;
-import com.springaop.algorithm.multithread.threads.Worker;
-import com.springaop.algorithm.multithread.threads.WorkerThread;
+import com.multithread.common.multithread.threads.MyCallable;
+import com.multithread.common.multithread.threads.MyMonitorThread;
+import com.multithread.common.multithread.threads.Worker;
+import com.multithread.common.multithread.threads.WorkerThread;
 
 import java.util.ArrayList;
 import java.util.Date;

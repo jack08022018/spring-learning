@@ -1,5 +1,7 @@
 package com.multithread.common.multithread;
 
+import com.multithread.common.multithread.threads.*;
+
 import java.util.Arrays;
 import java.util.Random;
 
