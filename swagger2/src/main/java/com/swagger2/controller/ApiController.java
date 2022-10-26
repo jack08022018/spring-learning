@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -63,7 +64,7 @@ public class ApiController {
 
     @PostMapping("/getUser")
     public ModelMap getUser() throws InterruptedException {
-        Thread.sleep(2000);
+        TimeUnit.SECONDS.sleep(2);
         ModelMap result = new ModelMap();
         result.put("id", 1);
         result.put("name", "King");
@@ -72,7 +73,7 @@ public class ApiController {
 
     @PostMapping("/getClient")
     public ModelMap getClient() throws InterruptedException {
-        Thread.sleep(3000);
+        TimeUnit.SECONDS.sleep(3);
         ModelMap result = new ModelMap();
         result.put("clientCode", 1001001);
         result.put("clientName", "PMH");
