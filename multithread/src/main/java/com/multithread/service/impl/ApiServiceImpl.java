@@ -5,6 +5,7 @@ import com.multithread.service.RestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
@@ -33,28 +34,25 @@ public class ApiServiceImpl implements ApiService {
                     return thread;
                 });
         ModelMap result = new ModelMap();
-        CompletableFuture
-                .runAsync(() -> {
-                    System.out.println("Thread: " + Thread.currentThread().getName());
-                    result.put("user", restService.getUser());
-                }, threadPool)
+        CompletableFuture getUser = CompletableFuture
+                .runAsync(() -> result.put("user", restService.getUser()), threadPool)
                 .exceptionally(e -> {
                     LOGGER.error(e.getMessage(), e);
                     result.put("user", e.getMessage());
                     return null;
-                })
-                .get(6, TimeUnit.SECONDS);
-        CompletableFuture
-                .runAsync(() -> {
-                    System.out.println("Thread: " + Thread.currentThread().getName());
-                    result.put("client", restService.getClient());
-                }, threadPool)
-                .exceptionally(e -> {
-                    LOGGER.error(e.getMessage(), e);
-                    result.put("user", e.getMessage());
-                    return null;
-                })
-                .get(6, TimeUnit.SECONDS);
+                });
+        CompletableFuture getClient = CompletableFuture
+                .runAsync(() -> result.put("client", restService.getClient()), threadPool)
+//                .completeExceptionally(new RuntimeException("Oh noes!"));
+                .handle((res, ex) -> {
+                    if (null != ex) {
+                        LOGGER.error(ex.getMessage(), ex);
+                        result.put("error", ex.getMessage());
+                    }
+                    return res;
+                });
+        getUser.get(6, TimeUnit.SECONDS);
+        getClient.get(6, TimeUnit.SECONDS);
         threadPool.shutdown();
         return result;
     }
@@ -62,15 +60,14 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public ModelMap getDataAsyncNoThreadPool() throws Exception {
         ModelMap result = new ModelMap();
-        CompletableFuture
+        CompletableFuture getUser = CompletableFuture
                 .runAsync(() -> result.put("user", restService.getUser()))
                 .exceptionally(e -> {
                     LOGGER.error(e.getMessage(), e);
                     result.put("user", e.getMessage());
                     return null;
-                })
-                .get(6, TimeUnit.SECONDS);
-        CompletableFuture
+                });
+        CompletableFuture getClient = CompletableFuture
                 .runAsync(() -> result.put("client", restService.getClient()))
 //                .completeExceptionally(new RuntimeException("Oh noes!"));
                 .handle((res, ex) -> {
@@ -79,13 +76,14 @@ public class ApiServiceImpl implements ApiService {
                         result.put("error", ex.getMessage());
                     }
                     return res;
-                })
-                .get(6, TimeUnit.SECONDS);
+                });
+        getUser.get(6, TimeUnit.SECONDS);
+        getClient.get(6, TimeUnit.SECONDS);
         return result;
     }
 
     @Override
-    public ModelMap getDataAsyncSeparateThread() throws Exception {
+    public ModelMap getDataAsyncAllOf() throws Exception {
         ModelMap result = new ModelMap();
         CompletableFuture<Void> futureGetUser = CompletableFuture
                 .runAsync(() -> result.put("user", restService.getUser()));
@@ -99,6 +97,24 @@ public class ApiServiceImpl implements ApiService {
                 return null;
             })
             .get(6, TimeUnit.SECONDS);
+        return result;
+    }
+
+    @Override
+    public ModelMap getDataAsyncAnnotation() throws Exception {
+        ModelMap result = new ModelMap();
+        CompletableFuture user = restService.getUserAsync();
+        CompletableFuture client = restService.getClientAsync();
+        CompletableFuture
+                .allOf(user, client)
+                .exceptionally(e -> {
+                    LOGGER.error(e.getMessage(), e);
+                    result.put("error", e.getMessage());
+                    return null;
+                })
+                .join();
+        result.put("user", user.get(6, TimeUnit.SECONDS));
+        result.put("client", client.get(6, TimeUnit.SECONDS));
         return result;
     }
 }

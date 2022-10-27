@@ -18,7 +18,8 @@ public class ApiController {
     public ModelMap getDataAsync() throws Exception {
 //        return apiService.getDataAsyncNoThreadPool();
 //        return apiService.getDataAsyncWithThreadPool();
-        return apiService.getDataAsyncSeparateThread();
+//        return apiService.getDataAsyncAllOf();
+        return apiService.getDataAsyncAnnotation();
     }
 
 }
