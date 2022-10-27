@@ -33,22 +33,28 @@ public class ApiServiceImpl implements ApiService {
                     return thread;
                 });
         ModelMap result = new ModelMap();
-        CompletableFuture<Void> completableFuture = CompletableFuture
+        CompletableFuture
                 .runAsync(() -> {
                     System.out.println("Thread: " + Thread.currentThread().getName());
                     result.put("user", restService.getUser());
                 }, threadPool)
+                .exceptionally(e -> {
+                    LOGGER.error(e.getMessage(), e);
+                    result.put("user", e.getMessage());
+                    return null;
+                })
+                .get(6, TimeUnit.SECONDS);
+        CompletableFuture
                 .runAsync(() -> {
                     System.out.println("Thread: " + Thread.currentThread().getName());
                     result.put("client", restService.getClient());
                 }, threadPool)
-                .handle((res, ex) -> {
-                    if (ex != null) {
-                        System.out.println("Oops! We have an exception - " + ex.getMessage());
-                    }
-                    return res;
-                });
-        completableFuture.get();
+                .exceptionally(e -> {
+                    LOGGER.error(e.getMessage(), e);
+                    result.put("user", e.getMessage());
+                    return null;
+                })
+                .get(6, TimeUnit.SECONDS);
         threadPool.shutdown();
         return result;
     }
@@ -57,21 +63,24 @@ public class ApiServiceImpl implements ApiService {
     public ModelMap getDataAsyncNoThreadPool() throws Exception {
         ModelMap result = new ModelMap();
         CompletableFuture
-                .runAsync(() -> {
-                    System.out.println("Thread: " + Thread.currentThread().getName());
-                    result.put("user", restService.getUser());
+                .runAsync(() -> result.put("user", restService.getUser()))
+                .exceptionally(e -> {
+                    LOGGER.error(e.getMessage(), e);
+                    result.put("user", e.getMessage());
+                    return null;
                 })
-                .runAsync(() -> {
-                    result.put("client", restService.getClient());
-                })
-                .handleAsync((res, ex) -> {
+                .get(6, TimeUnit.SECONDS);
+        CompletableFuture
+                .runAsync(() -> result.put("client", restService.getClient()))
+//                .completeExceptionally(new RuntimeException("Oh noes!"));
+                .handle((res, ex) -> {
                     if (null != ex) {
                         LOGGER.error(ex.getMessage(), ex);
                         result.put("error", ex.getMessage());
                     }
                     return res;
                 })
-                .get(10, TimeUnit.SECONDS);
+                .get(6, TimeUnit.SECONDS);
         return result;
     }
 
@@ -79,35 +88,17 @@ public class ApiServiceImpl implements ApiService {
     public ModelMap getDataAsyncSeparateThread() throws Exception {
         ModelMap result = new ModelMap();
         CompletableFuture<Void> futureGetUser = CompletableFuture
-                .runAsync(() -> {
-//                    try {
-                        result.put("user", restService.getUser());
-//                    }catch (Exception e) {
-//                        LOGGER.error(e.getMessage(), e);
-//                        result.put("user", e.toString());
-//                    }
-                });
+                .runAsync(() -> result.put("user", restService.getUser()));
         CompletableFuture<Void> futureGetClient = CompletableFuture
-                .runAsync(() -> {
-//                    try {
-                        result.put("client", restService.getClient());
-//                    }catch (Exception e) {
-//                        LOGGER.error(e.getMessage(), e);
-//                        result.put("client", e.toString());
-//                    }
-                });
+                .runAsync(() -> result.put("client", restService.getClient()));
         CompletableFuture
             .allOf(futureGetUser, futureGetClient)
-//            .completeOnTimeout(null, 10, TimeUnit.SECONDS)
-//            .get();
-            .handleAsync((res, ex) -> {
-                if (null != ex) {
-                    ex.printStackTrace();
-                    result.put("error", ex.getMessage());
-                }
-                return res;
+            .exceptionally(e -> {
+                LOGGER.error(e.getMessage(), e);
+                result.put("error", e.getMessage());
+                return null;
             })
-            .get(10, TimeUnit.SECONDS);
+            .get(6, TimeUnit.SECONDS);
         return result;
     }
 }

@@ -29,7 +29,7 @@ public class CompletableFutureHandler {
             return "Hello, " + name;
         }).completeExceptionally(new RuntimeException("Calculation failed!"));
 
-        CompletableFuture<String> completableFuture = CompletableFuture
+        return CompletableFuture
             .supplyAsync(() -> {
                 if (name == null) {
                     throw new RuntimeException("Computation error!");
@@ -42,7 +42,6 @@ public class CompletableFutureHandler {
                 }
                 return ex.getMessage();
             });
-        return completableFuture;
 
     }
     public static Future<String> calculateAsync() {

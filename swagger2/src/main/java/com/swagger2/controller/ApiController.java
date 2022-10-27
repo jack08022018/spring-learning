@@ -68,6 +68,7 @@ public class ApiController {
         ModelMap result = new ModelMap();
         result.put("id", 1);
         result.put("name", "King");
+        int a = 1/0;
         return result;
     }
 

@@ -9,12 +9,18 @@ import java.io.IOException;
 public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
     @Override
     public boolean hasError(ClientHttpResponse response) throws IOException {
+        try {
+            response.getStatusCode();
+        }catch (Exception e) {
+            return true;
+        }
         HttpStatus.Series series = response.getStatusCode().series();
         return series == HttpStatus.Series.CLIENT_ERROR || series == HttpStatus.Series.SERVER_ERROR;
     }
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
+        HttpStatus httpStatus = response.getStatusCode();
         String msgError = "StatusCode: " + response.getStatusCode().value() + " "
                 + response.getStatusCode().getReasonPhrase();
         if(response.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR) {
