@@ -1,4 +1,4 @@
-package com.multithread.configuration;
+package com.jpa.configuration;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
