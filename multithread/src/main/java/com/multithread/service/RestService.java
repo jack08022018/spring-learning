@@ -8,6 +8,7 @@ public interface RestService {
     public JsonNode getUser();
     public JsonNode getClient();
 
-    public CompletableFuture<JsonNode> getUserAsync();
+    public <T> CompletableFuture<T> getUserAsync();
     public CompletableFuture<JsonNode> getClientAsync();
+    public CompletableFuture<Void> saveUserAsync();
 }

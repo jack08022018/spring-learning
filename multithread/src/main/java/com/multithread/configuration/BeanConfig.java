@@ -32,7 +32,7 @@ public class BeanConfig {
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(20);
         executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("sgfgd");
+        executor.setThreadNamePrefix("AsyncThread::");
         executor.initialize();
         return executor;
     }

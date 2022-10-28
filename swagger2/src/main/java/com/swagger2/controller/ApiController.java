@@ -68,6 +68,7 @@ public class ApiController {
         ModelMap result = new ModelMap();
         result.put("id", 1);
         result.put("name", "King");
+        int a = 1/0;
         return result;
     }
 
@@ -78,6 +79,12 @@ public class ApiController {
         result.put("clientCode", 1001001);
         result.put("clientName", "PMH");
         return result;
+    }
+
+    @PostMapping("/saveUser")
+    public void saveUser() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(2);
+//        int a = 1/0;
     }
 
 }
