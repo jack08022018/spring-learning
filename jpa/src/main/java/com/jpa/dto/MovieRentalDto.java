@@ -1,4 +1,4 @@
-package com.jpa.repository.dto;
+package com.jpa.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -15,4 +15,5 @@ import java.time.LocalDateTime;
 public class MovieRentalDto {
     private String title;
     private LocalDateTime rentalDate;
+
 }

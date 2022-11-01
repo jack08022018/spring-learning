@@ -1,4 +1,4 @@
-package com.jpa.repository.entity;
+package com.jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Table(name = "rental")
 public class RentalEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rental_id")
     private Integer rentalId;
 

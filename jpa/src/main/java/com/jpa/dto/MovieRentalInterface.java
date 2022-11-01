@@ -1,4 +1,4 @@
-package com.jpa.repository.dto;
+package com.jpa.dto;
 
 import org.springframework.beans.factory.annotation.Value;
 
