@@ -1,8 +1,6 @@
 package com.jpa.entity.relationship;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,7 +46,6 @@ public class ActorEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "film_id")
     )
     @JsonManagedReference
-    @JsonIgnore
     private List<FilmEntity> films;
 
     public void addFilms(List<FilmEntity> data) {

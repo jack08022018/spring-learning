@@ -4,6 +4,7 @@ import com.jpa.dao.RentalDao;
 import com.jpa.entity.EmployeeEntity;
 import com.jpa.entity.SalariesEntity;
 import com.jpa.entity.relationship.ActorEntity;
+import com.jpa.entity.relationship.CityEntity;
 import com.jpa.entity.relationship.CountryEntity;
 import com.jpa.entity.relationship.FilmEntity;
 import com.jpa.enumerator.Gender;
@@ -79,16 +80,17 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     @Transactional
-    public void testJpaSave() {
+    public <T> T testJpaSave() {
         CountryEntity country = countryRepository.getReferenceById(999);
-//        country.setCountry("Wakanda");
-//        countryRepository.save(country);
+        country.setCountry("Wakanda");
+        countryRepository.save(country);
 //        CityEntity city = country.getCities().get(0);
 //        city.getCountry();
 //        CountryEntity country = city.getCountry();
 //        country.getCities().remove(city);
 //        countryRepository.save(country);
 //        countryRepository.deleteById(999);
+        return (T) "success";
 
 //        ActorEntity actor = ActorEntity.builder()
 //                .firstName("Nhung")
@@ -104,6 +106,13 @@ public class ApiServiceImpl implements ApiService {
 //        actor.addFilms(Arrays.asList(film));
 //        filmRepository.save(film);
 //        actorRepository.save(actor);
+
+//        return (T) (countryRepository.existsById(109) ? "true" : "false");
+//        return (T) countryRepository.findAll();
+//        ActorEntity actor = actorRepository.findById(200).get();
+//        return (T) actor;
+//        return (T) actorRepository.findById(200).get();
+//        return (T) filmRepository.findById(5).get();
     }
 
     @Override

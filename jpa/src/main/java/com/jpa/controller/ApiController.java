@@ -21,9 +21,9 @@ public class ApiController {
         return apiService.getRentalMovies(title);
     }
 
-    @GetMapping(value = "/delete")
-    public void delete() {
-        apiService.testJpaSave();
+    @GetMapping(value = "/testJpaSave")
+    public <T> T testJpaSave() {
+        return apiService.testJpaSave();
     }
 
     @GetMapping(value = "/handleTransactional")

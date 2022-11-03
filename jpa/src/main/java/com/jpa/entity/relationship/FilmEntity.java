@@ -1,8 +1,6 @@
 package com.jpa.entity.relationship;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +39,6 @@ public class FilmEntity implements Serializable {
             fetch = FetchType.LAZY
     )
     @JsonBackReference
-    @JsonIgnore
     private List<ActorEntity> actors = new ArrayList<>();
 
     public void addActors(List<ActorEntity> data) {

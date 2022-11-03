@@ -81,9 +81,9 @@ public class ApiServiceImpl implements ApiService {
     public ModelMap getDataAsyncAllOf() throws Exception {
         ModelMap result = new ModelMap();
         CompletableFuture<Void> futureGetUser = CompletableFuture
-                .runAsync(() -> result.put("user", restService.getUser()));
+                .runAsync(() -> result.put("user", restService.getUser()), threadPoolExecutor);
         CompletableFuture<Void> futureGetClient = CompletableFuture
-                .runAsync(() -> result.put("client", restService.getClient()));
+                .runAsync(() -> result.put("client", restService.getClient()), threadPoolExecutor);
         CompletableFuture
             .allOf(futureGetUser, futureGetClient)
             .exceptionally(e -> {
