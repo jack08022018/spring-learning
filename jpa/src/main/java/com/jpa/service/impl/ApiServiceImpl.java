@@ -1,6 +1,7 @@
 package com.jpa.service.impl;
 
 import com.jpa.dao.RentalDao;
+import com.jpa.entity.ClientEntity;
 import com.jpa.entity.EmployeeEntity;
 import com.jpa.entity.SalariesEntity;
 import com.jpa.entity.relationship.ActorEntity;
@@ -16,9 +17,14 @@ import com.jpa.service.CountryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -57,6 +63,18 @@ public class ApiServiceImpl implements ApiService {
     @Autowired
     private SalariesRepository salariesRepository;
 
+    @Autowired
+    private StoreRepository storeRepository;
+
+    @Autowired
+    private InventoryRepository inventoryRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+
     @Override
     public <T> List<T> getRentalMovies(String title) {
 //        return (List<T>) rentalRepository.getRentalMoviesProjection(title);
@@ -81,16 +99,15 @@ public class ApiServiceImpl implements ApiService {
     @Override
     @Transactional
     public <T> T testJpaSave() {
-        CountryEntity country = countryRepository.getReferenceById(999);
-        country.setCountry("Wakanda");
-        countryRepository.save(country);
-//        CityEntity city = country.getCities().get(0);
-//        city.getCountry();
-//        CountryEntity country = city.getCountry();
-//        country.getCities().remove(city);
-//        countryRepository.save(country);
-//        countryRepository.deleteById(999);
-        return (T) "success";
+//        CountryEntity country = countryRepository.getReferenceById(83);
+////        country.setCountry("Zambia");
+////        countryRepository.save(country);
+//        if(countryRepository.existsById(country.getCountryId())) {
+//            CityEntity city = cityRepository.getReferenceById(600);//83
+//            city.setCountry(country);
+//            cityRepository.save(city);
+//        }
+//        return (T) "success";
 
 //        ActorEntity actor = ActorEntity.builder()
 //                .firstName("Nhung")
@@ -106,14 +123,34 @@ public class ApiServiceImpl implements ApiService {
 //        actor.addFilms(Arrays.asList(film));
 //        filmRepository.save(film);
 //        actorRepository.save(actor);
+//        return (T) "success";
 
-//        return (T) (countryRepository.existsById(109) ? "true" : "false");
+//        return (T) Boolean.valueOf(countryRepository.existsById(109));
 //        return (T) countryRepository.findAll();
-//        ActorEntity actor = actorRepository.findById(200).get();
-//        return (T) actor;
+//        return (T) actorRepository.findById(200).get();
 //        return (T) actorRepository.findById(200).get();
 //        return (T) filmRepository.findById(5).get();
+//        return (T) storeRepository.findById(1).get();
+//        return (T) inventoryRepository.findById(1).get();
+
+        List<ClientEntity> data = new ArrayList<>();
+        int index = 2312;
+        for (int i = 0; i < 1000; i++) {
+            ClientEntity entity = ClientEntity.builder()
+                    .clientId(index)
+                    .clientName("client " + i)
+                    .lastUpdate(LocalDateTime.now())
+                    .build();
+            data.add(entity);
+            index++;
+//            entityManager.persist(entity);
+        }
+        clientRepository.saveAll(data);
+        return (T) "success";
     }
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     @Transactional
@@ -156,6 +193,12 @@ public class ApiServiceImpl implements ApiService {
         System.out.println("Total time: " + (end - start));
         System.out.println("end: " + end + " ********************************");
         return (T) result;
+    }
+
+    @Override
+    public Page<EmployeeEntity> getEmployeeList(EmployeeEntity dto) {
+        Pageable pageable = PageRequest.of(dto.getCurrentPage(), dto.getPageSize());
+        return employeeRepository.getEmployeeList(dto, pageable);
     }
 
 }

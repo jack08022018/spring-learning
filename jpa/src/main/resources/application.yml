@@ -9,8 +9,16 @@ spring:
     active: dev
   jackson.default-property-inclusion: non_absent
   jpa:
-    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        generate_statistics: true
+        jdbc.batch_size: 100
+        order_inserts: true
+        order_updates: true
+        batch_versioned_data: true
+#        use-new-id-generator-mappings: false
 #    open-in-view: false
   datasource:
     url: jdbc:mysql://localhost:3306/sakila

@@ -109,9 +109,4 @@ public class ApiServiceImpl implements ApiService {
         return employeeRepository.getProductList(dto, pageable);
     }
 
-    @Override
-    public List<?> getEmployeeLuci(String name) {
-        return employeeRepository.getEmployeeLuci(name);
-    }
-
 }

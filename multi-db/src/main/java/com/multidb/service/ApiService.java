@@ -18,6 +18,4 @@ public interface ApiService {
 
     List<?> handleData() throws JsonProcessingException;
     Page<EmployeeEntity> getProductList(EmployeeEntity dto);
-
-    List<?> getEmployeeLuci(String name);
 }

@@ -1,6 +1,7 @@
 package com.jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class StoreEntity implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
+    @JsonManagedReference
     private List<InventoryEntity> inventories = new ArrayList<>();
 
 }

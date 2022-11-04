@@ -85,9 +85,4 @@ public class ApiController {
         return apiService.getProductList(dto);
     }
 
-    @GetMapping(value = "/getEmployeeLuci")
-    public List<?> getEmployeeLuci(@RequestParam("name") String name)  {
-        return apiService.getEmployeeLuci(name);
-    }
-
 }

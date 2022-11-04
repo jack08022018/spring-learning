@@ -42,4 +42,12 @@ public class EmployeeEntity {
     @Transient
     @JsonProperty
     private Integer salary;
+
+    @Transient
+    @JsonProperty
+    private Integer pageSize;
+
+    @Transient
+    @JsonProperty
+    private Integer currentPage;
 }
