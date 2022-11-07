@@ -1,8 +1,10 @@
 package com.jpa.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jpa.dao.RentalDao;
 import com.jpa.entity.ClientEntity;
 import com.jpa.entity.EmployeeEntity;
+import com.jpa.entity.RentalNewEntity;
 import com.jpa.entity.SalariesEntity;
 import com.jpa.entity.relationship.ActorEntity;
 import com.jpa.entity.relationship.CityEntity;
@@ -14,17 +16,25 @@ import com.jpa.service.ActorService;
 import com.jpa.service.ApiService;
 import com.jpa.service.CityService;
 import com.jpa.service.CountryService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +42,10 @@ import java.util.stream.Collectors;
 @Service
 public class ApiServiceImpl implements ApiService {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    @Qualifier("customObjectMapper")
+    private ObjectMapper mapper;
 
     @Autowired
     private RentalRepository rentalRepository;
@@ -199,6 +213,37 @@ public class ApiServiceImpl implements ApiService {
     public Page<EmployeeEntity> getEmployeeList(EmployeeEntity dto) {
         Pageable pageable = PageRequest.of(dto.getCurrentPage(), dto.getPageSize());
         return employeeRepository.getEmployeeList(dto, pageable);
+    }
+
+    @Autowired
+    private RentalNewRepository rentalNewRepository;
+
+    @Override
+    @Transactional
+    public void importExcel(MultipartFile file) throws Exception {
+        Workbook workbook = new XSSFWorkbook(file.getInputStream());
+        Sheet sheet = workbook.getSheetAt(0);
+        Row row;
+        Cell cell;
+        List<RentalNewEntity> data = new ArrayList<>();
+        for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            row = sheet.getRow(i);
+//            rental_date	inventory_id	customer_id	return_date	staff_id	last_update
+            RentalNewEntity entity = RentalNewEntity.builder()
+                    .rentalDate(row.getCell(1).getLocalDateTimeCellValue())
+                    .inventoryId((int) row.getCell(2).getNumericCellValue())
+                    .customerId((int) row.getCell(3).getNumericCellValue())
+                    .returnDate(LocalDateTime.now())
+                    .staffId((int) row.getCell(5).getNumericCellValue())
+                    .lastUpdate(row.getCell(6).getLocalDateTimeCellValue())
+                    .build();
+            data.add(entity);
+        }
+//        System.out.println(mapper.writeValueAsString(data));
+        long start = System.currentTimeMillis();
+        rentalNewRepository.saveAll(data);
+        long end = System.currentTimeMillis();
+        System.out.println("Total time: " + (end - start));
     }
 
 }

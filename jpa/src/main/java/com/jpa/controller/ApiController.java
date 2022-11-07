@@ -6,6 +6,7 @@ import com.jpa.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,6 +39,11 @@ public class ApiController {
     @GetMapping(value = "/getEmployeePaging")
     public Page<EmployeeEntity> getEmployeeList(@RequestBody EmployeeEntity dto) {
         return apiService.getEmployeeList(dto);
+    }
+
+    @GetMapping(value = "/importLargeExcel")
+    public void importLargeExcel(@RequestParam("file") MultipartFile file) throws Exception {
+        apiService.importExcel(file);
     }
 
 }

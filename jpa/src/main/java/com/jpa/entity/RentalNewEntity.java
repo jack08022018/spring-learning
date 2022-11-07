@@ -18,10 +18,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "rental")
-public class RentalEntity implements Serializable {
+@Table(name = "rental_new")
+public class RentalNewEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "rental_seq", sequenceName = "rental_seq",allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rental_seq")
     @Column(name = "rental_id")
     private Integer rentalId;
 
@@ -42,13 +44,5 @@ public class RentalEntity implements Serializable {
 
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
-
-    @Transient
-    @JsonProperty
-    private Integer pageSize;
-
-    @Transient
-    @JsonProperty
-    private Integer currentPage;
 
 }
