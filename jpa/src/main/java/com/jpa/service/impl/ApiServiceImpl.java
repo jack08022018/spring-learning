@@ -21,6 +21,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class ApiServiceImpl implements ApiService {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     @Qualifier("customObjectMapper")
     private ObjectMapper mapper;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private RentalRepository rentalRepository;
@@ -55,6 +60,9 @@ public class ApiServiceImpl implements ApiService {
 
     @Autowired
     private CountryRepository countryRepository;
+
+    @Autowired
+    private RentalNewRepository rentalNewRepository;
 
     @Autowired
     private ActorRepository actorRepository;
@@ -163,9 +171,6 @@ public class ApiServiceImpl implements ApiService {
         return (T) "success";
     }
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
     @Transactional
     public void handleTransactional() {
@@ -215,20 +220,15 @@ public class ApiServiceImpl implements ApiService {
         return employeeRepository.getEmployeeList(dto, pageable);
     }
 
-    @Autowired
-    private RentalNewRepository rentalNewRepository;
-
     @Override
     @Transactional
     public void importExcel(MultipartFile file) throws Exception {
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
         Row row;
-        Cell cell;
         List<RentalNewEntity> data = new ArrayList<>();
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
             row = sheet.getRow(i);
-//            rental_date	inventory_id	customer_id	return_date	staff_id	last_update
             RentalNewEntity entity = RentalNewEntity.builder()
                     .rentalDate(row.getCell(1).getLocalDateTimeCellValue())
                     .inventoryId((int) row.getCell(2).getNumericCellValue())
@@ -239,11 +239,11 @@ public class ApiServiceImpl implements ApiService {
                     .build();
             data.add(entity);
         }
-//        System.out.println(mapper.writeValueAsString(data));
-        long start = System.currentTimeMillis();
         rentalNewRepository.saveAll(data);
-        long end = System.currentTimeMillis();
-        System.out.println("Total time: " + (end - start));
+//        entityManager.unwrap(Session.class).setJdbcBatchSize(500);
+//        data.forEach(s -> {
+//            entityManager.persist(s);
+//        });
     }
 
 }

@@ -2,6 +2,7 @@ package com.jpa.dao.impl;
 
 import com.jpa.dao.RentalDao;
 import com.jpa.dto.MovieRentalDto;
+import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,7 @@ public class RentalDaoImpl implements RentalDao {
 
     @Override
     public List<MovieRentalDto> getRentalMovies(String title) {
+        entityManager.unwrap(Session.class).setJdbcBatchSize(10);
         List<Tuple> tupleList = entityManager.createNativeQuery("""
                     SELECT C.title, A.rental_date
                     FROM rental A

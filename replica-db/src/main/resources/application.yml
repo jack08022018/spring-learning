@@ -1,9 +1,9 @@
 server:
-  port: 9193
-  servlet.context-path: /jpa
+  port: 9194
+  servlet.context-path: /replicadb
   undertow.max-http-post-size: 0
 spring:
-  application.name: jpa
+  application.name: replicadb
   main.allow-bean-definition-overriding: true
   profiles:
     active: dev
@@ -17,15 +17,17 @@ spring:
         jdbc.batch_size: 1000
         order_inserts: true
         order_updates: true
-#        batch_versioned_data: true
         use-new-id-generator-mappings: true
-#    open-in-view: false
-  datasource:
-#    url: jdbc:mysql://localhost:3306/sakila
-#    url: jdbc:mysql://localhost:3306/employees
-    url: jdbc:mariadb://localhost:3308/sakila
-    username: root
-    password: 123456
+
+app.datasource.master.jdbcUrl: jdbc:mariadb://localhost:3308/sakila
+app.datasource.master.username: root
+app.datasource.master.password: 123456
+app.datasource.master.driverClassName: org.mariadb.jdbc.Driver
+
+app.datasource.slave.jdbcUrl: jdbc:mariadb://localhost:3309/sakila
+app.datasource.slave.username: root
+app.datasource.slave.password: 123456
+app.datasource.slave.driverClassName: org.mariadb.jdbc.Driver
 
 logging:
   level:
