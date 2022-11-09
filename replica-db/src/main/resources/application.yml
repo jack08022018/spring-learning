@@ -24,10 +24,10 @@ app.datasource.master.username: root
 app.datasource.master.password: 123456
 app.datasource.master.driverClassName: org.mariadb.jdbc.Driver
 
-app.datasource.slave.jdbcUrl: jdbc:mariadb://localhost:3309/sakila
-app.datasource.slave.username: root
-app.datasource.slave.password: 123456
-app.datasource.slave.driverClassName: org.mariadb.jdbc.Driver
+app.datasource.replica.jdbcUrl: jdbc:mariadb://localhost:3309/sakila
+app.datasource.replica.username: root
+app.datasource.replica.password: 123456
+app.datasource.replica.driverClassName: org.mariadb.jdbc.Driver
 
 logging:
   level:

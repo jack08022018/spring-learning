@@ -22,15 +22,19 @@ import javax.sql.DataSource;
 @EntityScan
 @Configuration
 public class DatabaseConfiguration {
+    private static final String TRANSACTIONAL_NAME = "jpaTxManager";
 
     @Bean
     @ConfigurationProperties(prefix = "app.datasource.master")
     public HikariConfig masterConfiguration() {
+//        HikariConfig config = new HikariConfig();
+//        config.setDriverClassName("org.mariadb.jdbc.Driver");
+//        return config;
         return new HikariConfig();
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "app.datasource.slave")
+    @ConfigurationProperties(prefix = "app.datasource.replica")
     public HikariConfig slaveConfiguration() {
         return new HikariConfig();
     }
@@ -38,8 +42,9 @@ public class DatabaseConfiguration {
     @Bean
     public DataSource routingDataSource() {
         return new MasterReplicaRoutingDataSource(
-                loggingProxy("MASTER_DB", new HikariDataSource(masterConfiguration())),
-                loggingProxy("SLAVE_DB", new HikariDataSource(slaveConfiguration())));
+            loggingProxy("MASTER_DB", new HikariDataSource(masterConfiguration())),
+            loggingProxy("REPLICA_DB", new HikariDataSource(slaveConfiguration()))
+        );
     }
 
     private DataSource loggingProxy(String name, DataSource dataSource) {
@@ -64,11 +69,11 @@ public class DatabaseConfiguration {
 
     @Bean
     @Primary
-    public PlatformTransactionManager transactionManager(@Qualifier("jpaTxManager") PlatformTransactionManager wrapped) {
+    public PlatformTransactionManager transactionManager(@Qualifier(TRANSACTIONAL_NAME) PlatformTransactionManager wrapped) {
         return new ReplicaAwareTransactionManager(wrapped);
     }
 
-    @Bean(name = "jpaTxManager")
+    @Bean(name = TRANSACTIONAL_NAME)
     public PlatformTransactionManager jpaTransactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }

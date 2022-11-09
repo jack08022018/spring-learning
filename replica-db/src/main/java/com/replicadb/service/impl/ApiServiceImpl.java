@@ -48,7 +48,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     @Transactional
     public void saveMaster() {
-        int postfix = 7;
+        int postfix = 6;
         try {
             RentalNewEntity entity = rentalNewRepository.getReferenceById(1);
             entity.setStaffId(postfix);
