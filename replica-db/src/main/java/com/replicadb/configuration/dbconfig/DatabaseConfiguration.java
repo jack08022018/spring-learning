@@ -27,9 +27,6 @@ public class DatabaseConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "app.datasource.master")
     public HikariConfig masterConfiguration() {
-//        HikariConfig config = new HikariConfig();
-//        config.setDriverClassName("org.mariadb.jdbc.Driver");
-//        return config;
         return new HikariConfig();
     }
 

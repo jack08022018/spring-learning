@@ -1,6 +1,7 @@
 package com.jpa.controller;
 
 
+import com.jpa.dao.RentalDao;
 import com.jpa.entity.EmployeeEntity;
 import com.jpa.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import java.util.List;
 public class ApiController {
     @Autowired
     private ApiService apiService;
+
+    @Autowired
+    private RentalDao rentalDao;
 
     @GetMapping(value = "/getRentalMovies")
     public <T> List<T> getRentalMovies(@RequestParam("title") String title) {
@@ -44,6 +48,11 @@ public class ApiController {
     @GetMapping(value = "/importLargeExcel")
     public void importLargeExcel(@RequestParam("file") MultipartFile file) throws Exception {
         apiService.importExcel(file);
+    }
+
+    @GetMapping(value = "/getCommonTableExpression")
+    public <T> T getCommonTableExpression() {
+        return (T) rentalDao.getCommonTableExpression();
     }
 
 }
