@@ -31,8 +31,9 @@ public class ApiController {
     }
 
     @GetMapping(value = "/handleTransactional")
-    public void testSave() {
-        apiService.handleTransactional();
+    public void handleTransactional() throws InterruptedException {
+         apiService.handleTransactional();
+//        apiService.handleTransactionalReplica();
     }
 
     @GetMapping(value = "/handleLargeData")
@@ -53,6 +54,16 @@ public class ApiController {
     @GetMapping(value = "/getCommonTableExpression")
     public <T> T getCommonTableExpression() {
         return (T) rentalDao.getCommonTableExpression();
+    }
+
+    @GetMapping(value = "/mapRowToColumn")
+    public <T> T mapRowToColumn() {
+        return (T) rentalDao.mapRowToColumn();
+    }
+
+    @GetMapping(value = "/getPartition")
+    public <T> T getPartition() {
+        return (T) rentalDao.getPartition();
     }
 
 }

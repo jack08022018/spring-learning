@@ -10,6 +10,7 @@ public interface ApiService {
     <T> List<T> getRentalMovies(String title);
     <T> T testJpaSave();
     void handleTransactional();
+    void handleTransactionalReplica();
     <T> T handleLargeData();
     Page<EmployeeEntity> getEmployeeList(EmployeeEntity dto);
 

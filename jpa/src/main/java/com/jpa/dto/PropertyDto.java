@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CityDto {
-    private LocalDateTime lastUpdate;
-    private String country;
-    private String city;
-    private Integer country_id;
-    private Integer city_id;
+public class PropertyDto {
+    private String serviceName;
+    private String componentName;
+    private String databaseName;
+    private String url;
+    private String serverName;
+    private String userName;
+    private String password;
 }

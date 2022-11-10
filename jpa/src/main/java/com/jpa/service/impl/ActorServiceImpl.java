@@ -22,14 +22,27 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     @Transactional(
-            isolation = Isolation.SERIALIZABLE,
-//        transactionManager = "transactionManager"
-//        rollbackFor = [Exception::class],
-//        noRollbackFor = [RuntimeException::class],
-//        timeout = 60
-            propagation = Propagation.NOT_SUPPORTED
+        isolation = Isolation.SERIALIZABLE,
+//        transactionManager = "transactionManager",
+//        rollbackFor = Exception.class,
+//        noRollbackFor = Exception.class,
+//        timeout = 60,
+        propagation = Propagation.NOT_SUPPORTED
     )
     public void saveActor(String firstName) {
+        ActorEntity entity = actorRepository.findById(200).get();
+        entity.setFirstName(firstName);
+        actorRepository.save(entity);
+    }
+
+    @Override
+    @Transactional(
+        isolation = Isolation.SERIALIZABLE,
+        rollbackFor = Exception.class,
+        noRollbackFor = ArithmeticException.class,
+        propagation = Propagation.REQUIRES_NEW
+    )
+    public void saveActorRollbackFor(String firstName) {
         ActorEntity entity = actorRepository.findById(200).get();
         entity.setFirstName(firstName);
         actorRepository.save(entity);

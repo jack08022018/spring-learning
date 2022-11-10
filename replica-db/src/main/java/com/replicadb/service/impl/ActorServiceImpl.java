@@ -23,8 +23,8 @@ public class ActorServiceImpl implements ActorService {
     @Transactional(
         isolation = Isolation.SERIALIZABLE,
 //        transactionManager = "jpaTxManager",
-//        rollbackFor = Exception.class,
-        noRollbackFor = Exception.class,
+        rollbackFor = Exception.class,
+        noRollbackFor = ArithmeticException.class,
 //        timeout = 60
         propagation = Propagation.REQUIRES_NEW
     )

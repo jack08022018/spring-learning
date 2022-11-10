@@ -35,7 +35,10 @@ function getDataAjax(ajaxUrl, params) {
 		jsonData : params,
 		timeout: 10000,
 		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization':'Basic xxxxxxxxxxxxx',
+		},
 		success : function(response) {
 			var data = Ext.decode(response.responseText);
 			deferred.resolve(data);

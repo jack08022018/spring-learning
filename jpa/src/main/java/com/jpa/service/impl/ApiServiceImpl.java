@@ -29,15 +29,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -155,30 +158,54 @@ public class ApiServiceImpl implements ApiService {
 //        return (T) storeRepository.findById(1).get();
 //        return (T) inventoryRepository.findById(1).get();
 
-        List<ClientEntity> data = new ArrayList<>();
-        int index = 2312;
-        for (int i = 0; i < 1000; i++) {
-            ClientEntity entity = ClientEntity.builder()
-                    .clientId(index)
-                    .clientName("client " + i)
-                    .lastUpdate(LocalDateTime.now())
-                    .build();
-            data.add(entity);
-            index++;
-//            entityManager.persist(entity);
-        }
-        clientRepository.saveAll(data);
-        return (T) "success";
+//        List<ClientEntity> data = new ArrayList<>();
+//        int index = 2312;
+//        for (int i = 0; i < 1000; i++) {
+//            ClientEntity entity = ClientEntity.builder()
+//                    .clientId(index)
+//                    .clientName("client " + i)
+//                    .lastUpdate(LocalDateTime.now())
+//                    .build();
+//            data.add(entity);
+//            index++;
+////            entityManager.persist(entity);
+//        }
+//        clientRepository.saveAll(data);
+        ActorEntity entity = actorRepository.findById(200).get();
+        entity.setLastName(entity.getLastName() + "_" + entity.getFirstName());
+        actorRepository.save(entity);
+        return (T) entity;
     }
 
     @Override
     @Transactional
     public void handleTransactional() {
-        String postfix = " aa";
-        actorService.saveActor("THORA" + postfix);
-        cityService.saveCity("Ziguinchor" + postfix);
-        countryService.saveCountry("Zambia" + postfix);
+        String postfix = " 6";
+        ActorEntity entity = actorRepository.findById(200).get();
+//        ActorEntity entity = actorRepository.findLock(200);
+        entity.setFirstName("THORA" + postfix);
+        actorRepository.save(entity);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        actorService.saveActor("THORA" + postfix);
+//        cityService.saveCity("Ziguinchor" + postfix);
 //        int a = 1/0;
+    }
+
+    @Override
+    @Transactional
+    public void handleTransactionalReplica() {
+        String postfix = " 2";
+        try {
+            cityService.saveCity("Ziguinchor" + postfix);
+            int a = 1/0;
+        }catch (ArithmeticException e) {
+            actorService.saveActorRollbackFor("THORA" + postfix);
+            throw e;
+        }
     }
 
     @Override
