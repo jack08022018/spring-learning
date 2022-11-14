@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Repository
 public interface ActorRepository extends JpaRepository<ActorEntity, Integer> {
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
     @Query(value = """
             SELECT a
             FROM ActorEntity a

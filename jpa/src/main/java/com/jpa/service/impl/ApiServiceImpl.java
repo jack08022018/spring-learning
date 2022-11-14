@@ -124,54 +124,9 @@ public class ApiServiceImpl implements ApiService {
     @Override
     @Transactional
     public <T> T testJpaSave() {
-//        CountryEntity country = countryRepository.getReferenceById(83);
-////        country.setCountry("Zambia");
-////        countryRepository.save(country);
-//        if(countryRepository.existsById(country.getCountryId())) {
-//            CityEntity city = cityRepository.getReferenceById(600);//83
-//            city.setCountry(country);
-//            cityRepository.save(city);
-//        }
-//        return (T) "success";
-
-//        ActorEntity actor = ActorEntity.builder()
-//                .firstName("Nhung")
-//                .lastName("Hoang")
-//                .lastUpdate(LocalDateTime.now())
-//                .build();
-//        FilmEntity film = FilmEntity.builder()
-//                .title("star wars")
-//                .lastUpdate(LocalDateTime.now())
-//                .languageId(1)
-//                .build();
-//
-//        actor.addFilms(Arrays.asList(film));
-//        filmRepository.save(film);
-//        actorRepository.save(actor);
-//        return (T) "success";
-
-//        return (T) Boolean.valueOf(countryRepository.existsById(109));
-//        return (T) countryRepository.findAll();
-//        return (T) actorRepository.findById(200).get();
-//        return (T) actorRepository.findById(200).get();
-//        return (T) filmRepository.findById(5).get();
-//        return (T) storeRepository.findById(1).get();
-//        return (T) inventoryRepository.findById(1).get();
-
-//        List<ClientEntity> data = new ArrayList<>();
-//        int index = 2312;
-//        for (int i = 0; i < 1000; i++) {
-//            ClientEntity entity = ClientEntity.builder()
-//                    .clientId(index)
-//                    .clientName("client " + i)
-//                    .lastUpdate(LocalDateTime.now())
-//                    .build();
-//            data.add(entity);
-//            index++;
-////            entityManager.persist(entity);
-//        }
-//        clientRepository.saveAll(data);
-        ActorEntity entity = actorRepository.findById(200).get();
+//        ActorEntity entity = actorRepository.findById(200).get();
+//        ActorEntity entity = rentalDao.findActorWithLock(200);
+        ActorEntity entity = actorRepository.findLock(200);
         entity.setLastName(entity.getLastName() + "_" + entity.getFirstName());
         actorRepository.save(entity);
         return (T) entity;
@@ -179,10 +134,10 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     @Transactional
-    public void handleTransactional() {
-        String postfix = " 6";
-        ActorEntity entity = actorRepository.findById(200).get();
-//        ActorEntity entity = actorRepository.findLock(200);
+    public <T> T handleTransactional() {
+        String postfix = " 1";
+        ActorEntity entity = actorRepository.findLock(200);
+//        ActorEntity entity = rentalDao.findActorWithLock(200);
         entity.setFirstName("THORA" + postfix);
         actorRepository.save(entity);
         try {
@@ -193,6 +148,7 @@ public class ApiServiceImpl implements ApiService {
 //        actorService.saveActor("THORA" + postfix);
 //        cityService.saveCity("Ziguinchor" + postfix);
 //        int a = 1/0;
+        return (T) entity;
     }
 
     @Override

@@ -36,7 +36,7 @@ public class ActorEntity implements Serializable {
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
 
-//    @Version
+    @Version
     @Column(name = "version")
     private Integer version;
 

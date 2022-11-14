@@ -3,6 +3,8 @@ package com.jpa.dao;
 import com.jpa.dto.CityDto;
 import com.jpa.dto.MovieRentalDto;
 import com.jpa.dto.PropertyDto;
+import com.jpa.entity.relationship.ActorEntity;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,4 +13,6 @@ public interface RentalDao {
     List<CityDto> getCommonTableExpression();
     List<PropertyDto> mapRowToColumn();
     List<CityDto> getPartition();
+
+    ActorEntity findActorWithLock(int id);
 }

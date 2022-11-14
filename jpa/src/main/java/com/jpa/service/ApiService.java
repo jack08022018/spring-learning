@@ -9,7 +9,7 @@ import java.util.List;
 public interface ApiService {
     <T> List<T> getRentalMovies(String title);
     <T> T testJpaSave();
-    void handleTransactional();
+    <T> T handleTransactional();
     void handleTransactionalReplica();
     <T> T handleLargeData();
     Page<EmployeeEntity> getEmployeeList(EmployeeEntity dto);

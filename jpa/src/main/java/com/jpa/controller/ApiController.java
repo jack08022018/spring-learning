@@ -31,8 +31,8 @@ public class ApiController {
     }
 
     @GetMapping(value = "/handleTransactional")
-    public void handleTransactional() throws InterruptedException {
-         apiService.handleTransactional();
+    public <T> T handleTransactional() throws InterruptedException {
+         return apiService.handleTransactional();
 //        apiService.handleTransactionalReplica();
     }
 

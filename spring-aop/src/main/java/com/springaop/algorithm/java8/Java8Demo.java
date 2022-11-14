@@ -1,6 +1,7 @@
 package com.springaop.algorithm.java8;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Java8Demo {

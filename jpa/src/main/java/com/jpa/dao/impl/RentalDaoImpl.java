@@ -5,12 +5,14 @@ import com.jpa.dto.CityDto;
 import com.jpa.dto.MovieRentalDto;
 import com.jpa.dto.PropertyDto;
 import com.jpa.dto.StaffRentalDto;
+import com.jpa.entity.relationship.ActorEntity;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Tuple;
 import java.sql.Timestamp;
@@ -155,5 +157,11 @@ public class RentalDaoImpl implements RentalDao {
                         .city_id((Integer) s.get("city_id"))
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ActorEntity findActorWithLock(int id) {
+        ActorEntity entity = entityManager.find(ActorEntity.class, id, LockModeType.PESSIMISTIC_WRITE);
+        return entity;
     }
 }
