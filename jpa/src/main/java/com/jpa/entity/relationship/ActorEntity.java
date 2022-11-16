@@ -1,10 +1,11 @@
 package com.jpa.entity.relationship;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,11 +15,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+//@OptimisticLocking(type = OptimisticLockType.DIRTY)
+//@DynamicUpdate
 @Entity
 @Table(name = "actor")
 public class ActorEntity implements Serializable {
@@ -37,6 +41,7 @@ public class ActorEntity implements Serializable {
     private LocalDateTime lastUpdate;
 
     @Version
+    @JsonIgnore
     @Column(name = "version")
     private Integer version;
 

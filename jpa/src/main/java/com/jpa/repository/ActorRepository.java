@@ -3,6 +3,7 @@ package com.jpa.repository;
 import com.jpa.dto.MovieRentalInterface;
 import com.jpa.entity.relationship.ActorEntity;
 import com.jpa.entity.relationship.CityEntity;
+import org.hibernate.query.NativeQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -18,15 +19,25 @@ import java.util.Optional;
 
 @Repository
 public interface ActorRepository extends JpaRepository<ActorEntity, Integer> {
-    @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
+    @Lock(LockModeType.OPTIMISTIC)
     @Query(value = """
             SELECT a
             FROM ActorEntity a
             WHERE a.actorId = :id
         """)
-    ActorEntity findLock(@Param("id") int id);
+    ActorEntity findLockOptimistic(@Param("id") int id);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query(value = """
+            SELECT a
+            FROM ActorEntity a
+            WHERE a.actorId = :id
+        """)
     @QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "5000")})
-    Optional<ActorEntity> findById(Integer actorId);
+    ActorEntity findLockPessimistic(@Param("id") int id);
+
+//    @Lock(LockModeType.PESSIMISTIC_WRITE)
+//    @QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "5000")})
+//    Optional<ActorEntity> findById(Integer actorId);
+
 }

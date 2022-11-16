@@ -161,7 +161,7 @@ public class RentalDaoImpl implements RentalDao {
 
     @Override
     public ActorEntity findActorWithLock(int id) {
-        ActorEntity entity = entityManager.find(ActorEntity.class, id, LockModeType.PESSIMISTIC_WRITE);
+        ActorEntity entity = entityManager.find(ActorEntity.class, id, LockModeType.OPTIMISTIC);
         return entity;
     }
 }
