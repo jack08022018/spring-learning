@@ -19,17 +19,17 @@ class SecurityApplication : CommandLineRunner {
     lateinit var passwordEncoder: PasswordEncoder
 
     override fun run(vararg args: String?) {
-        var user = UserEntity()
-        user.username = "admin"
-        user.password = passwordEncoder.encode("1234")
-        user.roles = listOf("ROLE_ADMIN","ROLE_USER")
-        userRepository.save(user)
-
-        user = UserEntity()
-        user.username = "user"
-        user.password = passwordEncoder.encode("1234")
-        user.roles = listOf("ROLE_USER")
-        userRepository.save(user)
+//        var user = UserEntity()
+//        user.username = "admin"
+//        user.password = passwordEncoder.encode("1234")
+//        user.roles = listOf("ROLE_ADMIN","ROLE_USER")
+//        userRepository.save(user)
+//
+//        user = UserEntity()
+//        user.username = "user"
+//        user.password = passwordEncoder.encode("1234")
+//        user.roles = listOf("ROLE_USER")
+//        userRepository.save(user)
     }
 }
 

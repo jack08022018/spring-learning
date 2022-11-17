@@ -6,20 +6,29 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.security.config.exceptionHandler.RestTemplateResponseErrorHandler
 import com.security.config.filters.MainFilter
+import com.security.config.jwt.user.UserEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
+import org.springframework.data.domain.AuditorAware
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.web.client.RestTemplate
 
 @Configuration
 @EnableScheduling
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 class BeanConfig {
     @Autowired
     lateinit var env: Environment
+
+    @Bean
+    fun auditorProvider(): AuditorAware<UserEntity> {
+        return AuditorAwareImpl()
+    }
 
     @Bean(name = ["customObjectMapper"])
     fun getObjectMapper(): ObjectMapper {

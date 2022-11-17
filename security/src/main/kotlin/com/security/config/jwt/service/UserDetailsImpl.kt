@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 internal class UserDetailsImpl(
-    private val id: Long,
+    private val id: Int,
     private val username: String,
 
     @field:JsonIgnore

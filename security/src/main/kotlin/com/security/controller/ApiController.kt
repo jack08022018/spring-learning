@@ -2,21 +2,23 @@ package com.security.controller
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.security.repository.RentalNewRepository
 import com.security.config.jwt.JwtUtils
 import com.security.config.jwt.payload.LoginRequest
 import com.security.config.jwt.payload.LoginResponse
 import com.security.config.jwt.service.UserDetailsImpl
 import com.security.dto.ParamInfo
+import com.security.entity.RentalNewEntity
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.RestTemplate
+import java.time.LocalDateTime
 import java.util.stream.Collectors
 
 @RestController
@@ -54,13 +56,25 @@ class ApiController {
         return response
     }
 
+    @Autowired
+    lateinit var rentalNewRepository : RentalNewRepository
+
     @GetMapping(value = ["/admin"])
     fun admin(@RequestParam("status") status: String) {
-        if (status == "success") {
-            logger.info("success")
-        } else {
-            println(1 / 0)
-        }
+//        if (status == "success") {
+//            logger.info("success")
+//        } else {
+//            println(1 / 0)
+//        }
+//        var entity = RentalNewEntity(
+//            rentalDate = LocalDateTime.now(),
+//            inventoryId = 1,
+//            customerId = 1,
+//            staffId = 1
+//        )
+        var entity = rentalNewRepository.findById(16052).get()
+        entity.customerId = 2
+        rentalNewRepository.save(entity)
     }
 
     @GetMapping(value = ["/user"])

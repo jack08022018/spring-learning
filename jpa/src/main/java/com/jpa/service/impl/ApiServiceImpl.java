@@ -126,8 +126,8 @@ public class ApiServiceImpl implements ApiService {
     public <T> T testJpaSave() {
 //        ActorEntity entity = actorRepository.findById(200).get();
 //        ActorEntity entity = rentalDao.findActorWithLock(200);
-        ActorEntity entity = actorRepository.findLockOptimistic(200);
 //        ActorEntity entity = actorRepository.findLockPessimistic(200);
+        ActorEntity entity = actorRepository.findLockOptimistic(200);
         entity.setLastName(entity.getLastName() + "_" + entity.getFirstName());
         actorRepository.save(entity);
         return (T) entity;
@@ -136,7 +136,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     @Transactional
     public <T> T handleTransactional() {
-        String postfix = " 7";
+        String postfix = " 2";
 //        ActorEntity entity = actorRepository.findById(200).get();
 //        ActorEntity entity = rentalDao.findActorWithLock(200);
         ActorEntity entity = actorRepository.findLockOptimistic(200);
