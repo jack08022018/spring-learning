@@ -1,4 +1,4 @@
-package com.security.config
+package com.security.config.jwt.service
 
 import com.security.config.jwt.user.UserEntity
 import com.security.config.jwt.user.UserRepository

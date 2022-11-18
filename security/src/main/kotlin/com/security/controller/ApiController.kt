@@ -66,24 +66,27 @@ class ApiController {
 //        } else {
 //            println(1 / 0)
 //        }
-//        var entity = RentalNewEntity(
-//            rentalDate = LocalDateTime.now(),
-//            inventoryId = 1,
-//            customerId = 1,
-//            staffId = 1
-//        )
-        var entity = rentalNewRepository.findById(16052).get()
-        entity.customerId = 2
+        var entity = RentalNewEntity(
+            rentalDate = LocalDateTime.now(),
+            inventoryId = 1,
+            customerId = 1,
+            staffId = 1
+        )
+//        var entity = rentalNewRepository.findById(16052).get()
+//        entity.customerId = 2
         rentalNewRepository.save(entity)
     }
 
     @GetMapping(value = ["/user"])
     fun user(@RequestParam("status") status: String) {
-        if (status == "success") {
-            logger.info("success")
-        } else {
-            println(1 / 0)
-        }
+//        if (status == "success") {
+//            logger.info("success")
+//        } else {
+//            println(1 / 0)
+//        }
+        var entity = rentalNewRepository.findById(2).get()
+        entity.customerId = 2
+        rentalNewRepository.save(entity)
     }
 
     @Autowired

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.security.config.exceptionHandler.RestTemplateResponseErrorHandler
 import com.security.config.filters.MainFilter
+import com.security.config.jwt.service.AuditorAwareImpl
 import com.security.config.jwt.user.UserEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.web.servlet.FilterRegistrationBean

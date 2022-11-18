@@ -1,7 +1,10 @@
 package com.security.entity
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.security.config.jwt.user.UserEntity
+import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
@@ -41,14 +44,14 @@ open class RentalNewEntity(
     @Column(name = "updated_at")
     open var updatedAt: LocalDateTime? = null,
 
-//    @ManyToOne
-//    @JoinColumn(name = "created_by")
-//    @CreatedBy
-//    private User createdBy,
-//
-//    @ManyToOne
-//    @JoinColumn(name = "updated_by")
-//    @LastModifiedBy
-//    private User updatedBy,
+    @ManyToOne
+    @CreatedBy
+    @JoinColumn(name = "created_by")
+    open var createdBy: UserEntity? = null,
+
+    @ManyToOne
+    @LastModifiedBy
+    @JoinColumn(name = "updated_by")
+    open var updatedBy: UserEntity? = null
 
 )
