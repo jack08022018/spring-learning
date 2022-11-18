@@ -2,11 +2,15 @@ package com.jpa.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jpa.enumerator.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.TypeDef;
 
+import javax.money.MonetaryAmount;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -44,5 +48,8 @@ public class RentalNewEntity implements Serializable {
 
     @Column(name = "last_update")
     private LocalDateTime lastUpdate;
+
+    @Column(name = "status")
+    private Status status;
 
 }

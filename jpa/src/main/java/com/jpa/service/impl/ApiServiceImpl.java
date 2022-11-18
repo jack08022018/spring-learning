@@ -6,11 +6,9 @@ import com.jpa.entity.ClientEntity;
 import com.jpa.entity.EmployeeEntity;
 import com.jpa.entity.RentalNewEntity;
 import com.jpa.entity.SalariesEntity;
-import com.jpa.entity.relationship.ActorEntity;
-import com.jpa.entity.relationship.CityEntity;
-import com.jpa.entity.relationship.CountryEntity;
-import com.jpa.entity.relationship.FilmEntity;
+import com.jpa.entity.relationship.*;
 import com.jpa.enumerator.Gender;
+import com.jpa.enumerator.Status;
 import com.jpa.repository.*;
 import com.jpa.service.ActorService;
 import com.jpa.service.ApiService;
@@ -100,6 +98,12 @@ public class ApiServiceImpl implements ApiService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostDetailRepository postDetailRepository;
+
     @Override
     public <T> List<T> getRentalMovies(String title) {
 //        return (List<T>) rentalRepository.getRentalMoviesProjection(title);
@@ -116,9 +120,9 @@ public class ApiServiceImpl implements ApiService {
 
 //        return (List<T>) rentalRepository.getRentalMoviesDto(title);
 
-//        return (List<T>) rentalDao.getRentalMovies(title);
+        return (List<T>) rentalDao.getRentalMovies(title);
 
-        return (List<T>) countryRepository.findAllById(Collections.singleton(999));
+//        return (List<T>) countryRepository.findAllById(Collections.singleton(999));
     }
 
     @Override

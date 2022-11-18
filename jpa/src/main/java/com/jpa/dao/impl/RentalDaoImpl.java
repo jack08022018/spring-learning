@@ -37,6 +37,7 @@ public class RentalDaoImpl implements RentalDao {
                 """;
         List<Tuple> tupleList = entityManager.createNativeQuery(query, Tuple.class)
                 .setParameter("title", title)
+                .setHint("org.hibernate.readOnly", true)
                 .unwrap(Query.class)
                 .getResultList();
         return tupleList.stream()
