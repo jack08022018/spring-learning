@@ -6,13 +6,14 @@ plugins {
 }
 
 group = 'com'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '17'
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    all*.exclude module : 'spring-boot-starter-logging'
 }
 
 repositories {
@@ -34,6 +35,12 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.2.2")
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.javamoney:moneta:1.4.2'
+    implementation("org.springframework.boot:spring-boot-starter-logging:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:2.7.3")
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-cache:2.7.5'
+    testImplementation 'it.ozimov:embedded-redis:0.7.3'
 }
 
 tasks.named('test') {

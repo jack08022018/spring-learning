@@ -18,7 +18,7 @@ public interface RentalRepository extends JpaRepository<RentalEntity, Integer> {
             SELECT C.title, A.rental_date
             FROM rental A
                 INNER JOIN inventory B ON B.inventory_id = A.inventory_id
-                INNER JOIN film C ON C.film_id = film_id
+                INNER JOIN film C ON C.film_id = B.film_id
             WHERE C.title LIKE %:title%
             ORDER BY C.title
         """)

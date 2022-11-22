@@ -7,10 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 import org.hibernate.query.NativeQuery;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,5 +39,8 @@ public interface ActorRepository extends JpaRepository<ActorEntity, Integer> {
 //    @Lock(LockModeType.PESSIMISTIC_WRITE)
 //    @QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "5000")})
 //    Optional<ActorEntity> findById(Integer actorId);
+
+    @EntityGraph(attributePaths = {"films"})
+    Optional<ActorEntity> findById(Integer actorId);
 
 }

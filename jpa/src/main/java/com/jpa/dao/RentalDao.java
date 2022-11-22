@@ -6,6 +6,8 @@ import com.jpa.dto.PropertyDto;
 import com.jpa.entity.relationship.ActorEntity;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.Query;
+import javax.persistence.Tuple;
 import java.util.List;
 
 public interface RentalDao {

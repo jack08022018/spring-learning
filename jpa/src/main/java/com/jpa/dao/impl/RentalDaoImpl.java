@@ -4,18 +4,14 @@ import com.jpa.dao.RentalDao;
 import com.jpa.dto.CityDto;
 import com.jpa.dto.MovieRentalDto;
 import com.jpa.dto.PropertyDto;
-import com.jpa.dto.StaffRentalDto;
 import com.jpa.entity.relationship.ActorEntity;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.hibernate.transform.Transformers;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Tuple;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +20,33 @@ public class RentalDaoImpl implements RentalDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+//    @Override
+//    @Cacheable(value = "getRentalMovies")
+//    public List<MovieRentalDto> getRentalMovies(String title) {
+//        entityManager.unwrap(Session.class).setJdbcBatchSize(10);
+//        String query = """
+//                    SELECT C.title, A.rentalDate
+//                    FROM RentalEntity A
+//                        INNER JOIN InventoryEntity B ON B.inventoryId = A.inventoryId
+//                        INNER JOIN FilmEntity C ON C.filmId = B.filmId
+//                    WHERE C.title LIKE '%:title%'
+//                        AND B.filmId < :id
+//                    ORDER BY C.title
+//                """.replaceAll(":title", title);
+//        List<Tuple> tupleList = entityManager.createQuery(query, Tuple.class)
+//                .setParameter("id", 9000)
+//                .unwrap(Query.class)
+//                .getResultList();
+//        return tupleList.stream()
+//                .map(s -> new MovieRentalDto().builder()
+//                            .title((String) s.get(0))
+//                            .rentalDate((LocalDateTime) s.get(1))
+//                            .build())
+//                .collect(Collectors.toList());
+//    }
+
     @Override
+    @Cacheable(value = "getRentalMovies")
     public List<MovieRentalDto> getRentalMovies(String title) {
         entityManager.unwrap(Session.class).setJdbcBatchSize(10);
         String query = """
@@ -32,21 +54,21 @@ public class RentalDaoImpl implements RentalDao {
                     FROM rental A
                         INNER JOIN inventory B ON B.inventory_id = A.inventory_id
                         INNER JOIN film C ON C.film_id = B.film_id
-                    WHERE C.title LIKE '%'||:title||'%'
+                    WHERE C.title LIKE '%:title%'
+                        AND B.film_id < :id
                     ORDER BY C.title
-                """;
+                """.replaceAll(":title", title);
         List<Tuple> tupleList = entityManager.createNativeQuery(query, Tuple.class)
-                .setParameter("title", title)
-                .setHint("org.hibernate.readOnly", true)
+                .setParameter("id", 9000)
                 .unwrap(Query.class)
                 .getResultList();
         return tupleList.stream()
                 .map(s -> {
                     Timestamp rental_date = (Timestamp) s.get("rental_date");
                     return new MovieRentalDto().builder()
-                                .title((String) s.get("title"))
-                                .rentalDate(rental_date.toLocalDateTime())
-                                .build();
+                            .title((String) s.get("title"))
+                            .rentalDate(rental_date.toLocalDateTime())
+                            .build();
                 })
                 .collect(Collectors.toList());
     }
@@ -71,6 +93,8 @@ public class RentalDaoImpl implements RentalDao {
                     		ON B.country_id = A.country_id
                 """;
         List<Tuple> tupleList = entityManager.createNativeQuery(query, Tuple.class)
+                //                .setHint(QueryHints.HINT_READONLY, true)
+//                .setHint(QueryHints.HINT_CACHEABLE, true)
                 .unwrap(Query.class)
                 .getResultList();
         return tupleList.stream()
@@ -135,11 +159,10 @@ public class RentalDaoImpl implements RentalDao {
     public List<CityDto> getPartition() {
         String query = """
                     WITH DATA_PARTITION AS (
-                       SELECT *, ROW_NUMBER()
-                       over (
-                          PARTITION BY country_id
-                          order by city_id desc
-                       ) AS ROW_NO
+                       SELECT *, ROW_NUMBER() over (
+                              PARTITION BY country_id
+                              order by city_id desc
+                           ) AS ROW_NO
                        FROM city
                        WHERE city_id < 30
                     )

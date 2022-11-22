@@ -25,6 +25,12 @@ import java.util.Set;
 //@DynamicUpdate
 @Entity
 @Table(name = "actor")
+//@NamedEntityGraph(
+//    name = "ActorEntity",
+//    attributeNodes = {
+//        @NamedAttributeNode("films"),
+//    }
+//)
 public class ActorEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

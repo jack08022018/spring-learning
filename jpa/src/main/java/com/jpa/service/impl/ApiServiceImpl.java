@@ -35,6 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -128,13 +129,23 @@ public class ApiServiceImpl implements ApiService {
     @Override
     @Transactional
     public <T> T testJpaSave() {
-//        ActorEntity entity = actorRepository.findById(200).get();
+//        CountryEntity entity = countryRepository.findById(1).get();
+        ActorEntity entity = actorRepository.findById(200).get();
+        return (T) entity;
 //        ActorEntity entity = rentalDao.findActorWithLock(200);
 //        ActorEntity entity = actorRepository.findLockPessimistic(200);
-        ActorEntity entity = actorRepository.findLockOptimistic(200);
-        entity.setLastName(entity.getLastName() + "_" + entity.getFirstName());
-        actorRepository.save(entity);
-        return (T) entity;
+//        ActorEntity entity = actorRepository.findLockOptimistic(200);
+//        entity.setLastName(entity.getLastName() + "_" + entity.getFirstName());
+//        actorRepository.save(entity);
+//        return (T) entity;
+
+//        long start = System.currentTimeMillis();
+//        System.out.println("start: " + start +  "********************************");
+//
+//        long end = System.currentTimeMillis();
+//        System.out.println("Total time: " + (end - start));
+//        System.out.println("end: " + end + " ********************************");
+//        return (T) "success";
     }
 
     @Override
