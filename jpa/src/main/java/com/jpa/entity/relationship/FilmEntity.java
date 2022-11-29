@@ -32,6 +32,11 @@ public class FilmEntity implements Serializable {
     @Column(name = "language_id")
     private Integer languageId;
 
+    @Version
+    @JsonIgnore
+    @Column(name = "version")
+    private Integer version;
+
     @ManyToMany(
             mappedBy = "films",
             fetch = FetchType.LAZY

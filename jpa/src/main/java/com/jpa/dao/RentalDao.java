@@ -17,4 +17,5 @@ public interface RentalDao {
     List<CityDto> getPartition();
 
     ActorEntity findActorWithLock(int id);
+    List<ActorEntity> findActorForJobQueueSkipLock();
 }

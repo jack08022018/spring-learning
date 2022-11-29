@@ -5,14 +5,18 @@ import com.jpa.dto.CityDto;
 import com.jpa.dto.MovieRentalDto;
 import com.jpa.dto.PropertyDto;
 import com.jpa.entity.relationship.ActorEntity;
+import org.hibernate.LockOptions;
 import org.hibernate.Session;
+import org.hibernate.cfg.AvailableSettings;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -187,5 +191,27 @@ public class RentalDaoImpl implements RentalDao {
     public ActorEntity findActorWithLock(int id) {
         ActorEntity entity = entityManager.find(ActorEntity.class, id, LockModeType.OPTIMISTIC);
         return entity;
+    }
+
+    @Override
+    public List<ActorEntity> findActorForJobQueueSkipLock() {
+//        String query = """
+//                SELECT a FROM ActorEntity a WHERE a.lastName = :lastName
+//            """;
+//        return entityManager.createQuery(query, ActorEntity.class)
+//                .setParameter("lastName", "GUINESS")
+//                .setMaxResults(2)
+//                .setLockMode(LockModeType.PESSIMISTIC_WRITE)
+//                .setHint(AvailableSettings.JPA_LOCK_TIMEOUT, LockOptions.SKIP_LOCKED)
+//                .getResultList();
+
+        String query = """
+                SELECT a.* 
+                FROM actor a
+                WHERE a.last_name = :lastName LIMIT 2 for UPDATE SKIP LOCKED
+            """;
+        return entityManager.createNativeQuery(query, ActorEntity.class)
+                .setParameter("lastName", "GUINESS")
+                .getResultList();
     }
 }

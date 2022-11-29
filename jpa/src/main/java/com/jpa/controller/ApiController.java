@@ -3,6 +3,7 @@ package com.jpa.controller;
 
 import com.jpa.dao.RentalDao;
 import com.jpa.entity.EmployeeEntity;
+import com.jpa.repository.RentalRepository;
 import com.jpa.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ public class ApiController {
 
     @Autowired
     private RentalDao rentalDao;
+
+    @Autowired
+    private RentalRepository rentalRepository;
 
     @GetMapping(value = "/getRentalMovies")
     public <T> List<T> getRentalMovies(@RequestParam("title") String title) {
@@ -65,6 +69,11 @@ public class ApiController {
     @GetMapping(value = "/getPartition")
     public <T> T getPartition() {
         return (T) rentalDao.getPartition();
+    }
+
+    @GetMapping(value = "/windowFunctions")
+    public <T> T windowFunctions() {
+        return (T) rentalRepository.windowFunctions();
     }
 
 }

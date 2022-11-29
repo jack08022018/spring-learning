@@ -131,10 +131,13 @@ public class ApiServiceImpl implements ApiService {
     public <T> T testJpaSave() {
 //        CountryEntity entity = countryRepository.findById(1).get();
         ActorEntity entity = actorRepository.findById(200).get();
-        return (T) entity;
 //        ActorEntity entity = rentalDao.findActorWithLock(200);
 //        ActorEntity entity = actorRepository.findLockPessimistic(200);
+//        return (T) entity;
+//        List<ActorEntity> data = rentalDao.findActorForJobQueueSkipLock();
+//        List<ActorEntity> data = actorRepository.findTop2ByLastName();
 //        ActorEntity entity = actorRepository.findLockOptimistic(200);
+        return (T) entity;
 //        entity.setLastName(entity.getLastName() + "_" + entity.getFirstName());
 //        actorRepository.save(entity);
 //        return (T) entity;
@@ -151,13 +154,15 @@ public class ApiServiceImpl implements ApiService {
     @Override
     @Transactional
     public <T> T handleTransactional() {
-        String postfix = " 2";
+        String postfix = " 3";
 //        ActorEntity entity = actorRepository.findById(200).get();
 //        ActorEntity entity = rentalDao.findActorWithLock(200);
-        ActorEntity entity = actorRepository.findLockOptimistic(200);
-//        ActorEntity entity = actorRepository.findLockPessimistic(200);
-        entity.setFirstName("THORA" + postfix);
-        actorRepository.save(entity);
+//        ActorEntity entity = actorRepository.findLockOptimistic();
+        ActorEntity entity = actorRepository.findLockPessimistic(200);
+//        List<ActorEntity> data = actorRepository.findTop2ByLastName();
+//        List<ActorEntity> data = rentalDao.findActorForJobQueueSkipLock();
+//        entity.setFirstName("THORA" + postfix);
+//        actorRepository.save(entity);
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
