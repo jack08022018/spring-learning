@@ -7,6 +7,7 @@
     <file type="web" url="file://$PROJECT_DIR$/demo-springboot" />
     <file type="web" url="file://$PROJECT_DIR$/extjs" />
     <file type="web" url="file://$PROJECT_DIR$/graphql-demo" />
+    <file type="web" url="file://$PROJECT_DIR$/grpc" />
     <file type="web" url="file://$PROJECT_DIR$/h2database" />
     <file type="web" url="file://$PROJECT_DIR$/itext" />
     <file type="web" url="file://$PROJECT_DIR$/jpa" />
@@ -16,6 +17,7 @@
     <file type="web" url="file://$PROJECT_DIR$/mysql" />
     <file type="web" url="file://$PROJECT_DIR$/replica-db" />
     <file type="web" url="file://$PROJECT_DIR$/security" />
+    <file type="web" url="file://$PROJECT_DIR$/spring-activemq" />
     <file type="web" url="file://$PROJECT_DIR$/spring-aop" />
     <file type="web" url="file://$PROJECT_DIR$/spring-redis" />
     <file type="web" url="file://$PROJECT_DIR$/spring-validate" />
