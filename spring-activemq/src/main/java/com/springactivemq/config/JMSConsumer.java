@@ -23,8 +23,8 @@ public class JMSConsumer {
         try {
             MessageInfo message = (MessageInfo) objectMessage.getObject();
             logger.info("received: " + new ObjectMapper().writeValueAsString(message));
-//            TimeUnit.SECONDS.sleep(3);
-//            objectMessage.acknowledge();
+            TimeUnit.SECONDS.sleep(3);
+            objectMessage.acknowledge();
         } catch (Exception e) {
             logger.error("\nhandleObj:\n", e);
         }

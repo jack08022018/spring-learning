@@ -16,11 +16,6 @@ public class JMSProducer {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-//    @PostConstruct
-//    void init() {
-//        jmsTemplate = new JmsTemplate(connectionFactory);
-//    }
-
     public void sendMessage(String message) {
         jmsTemplate.send(QueueName.PRINT_NAME, session -> session.createTextMessage(message));
     }
