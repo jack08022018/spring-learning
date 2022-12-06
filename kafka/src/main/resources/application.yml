@@ -8,16 +8,11 @@ spring:
   profiles.active: dev
   jackson.default-property-inclusion: non_absent
 
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: demo-group-id
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.bootstrap-servers: localhost:9092
+topic.string: STRING_TOPIC
+topic.long.message: longMessage
+topic.greeting: GREETING_TOPIC
+topic.multiType: MULTI_TYPE_TOPIC
 
 logging:
   level:
@@ -30,10 +25,3 @@ logging:
     org.hibernate.SQL: DEBUG
 #    org.hibernate.type.descriptor.sql: trace
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
-topic.jack: FIRST_TOPIC
-topic.long.message: longMessage
-topic.greeting: GREETING_TOPIC
-#filtered.topic.name: filtered
-#partitioned.topic.name: partitioned
-#multi.type.topic.name: multitype

@@ -18,11 +18,14 @@ public class KafkaTopicConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
-    @Value(value = "${topic.jack}")
-    private String topicJack;
+    @Value(value = "${topic.string}")
+    private String topicString;
 
     @Value(value = "${topic.greeting}")
     private String topicGreeting;
+
+    @Value(value = "${topic.multiType}")
+    private String topicMultiType;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -32,13 +35,18 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic topicJack() {
-        return new NewTopic(topicJack, 1, (short) 1);
+    public NewTopic topicString() {
+        return new NewTopic(topicString, 2, (short) 1);
     }
 
     @Bean
     public NewTopic topicGreeting() {
         return new NewTopic(topicGreeting, 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic topicMultiType() {
+        return new NewTopic(topicMultiType, 1, (short) 1);
     }
 
 //    @Bean
@@ -61,8 +69,4 @@ public class KafkaTopicConfig {
 //        return newTopic;
 //    }
 //
-//    @Bean
-//    public NewTopic multiTypeTopic() {
-//        return new NewTopic(multiTypeTopicName, 1, (short) 1);
-//    }
 }

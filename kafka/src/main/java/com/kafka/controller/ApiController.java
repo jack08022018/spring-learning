@@ -19,16 +19,23 @@ public class ApiController {
     @Autowired
     private KafkaTemplate<String, Greeting> greetingKafkaTemplate;
 
-    @Value(value = "${topic.jack}")
-    private String topicJack;
+    @Autowired
+    private KafkaTemplate<String, Object> multiTypeKafkaTemplate;
+
+    @Value(value = "${topic.string}")
+    private String topicString;
 
     @Value(value = "${topic.greeting}")
     private String topicGreeting;
 
+    @Value(value = "${topic.multiType}")
+    private String topicMultiType;
+
     @GetMapping(value = "/sendMessage")
     public <T> T sendMessage(@RequestParam("title") String title) throws Exception {
-//        kafkaTemplate.send(topicJack, title);
-        greetingKafkaTemplate.send(topicGreeting, new Greeting("Greetings", "World!"));
+//        kafkaTemplate.send(topicString, title);
+//        greetingKafkaTemplate.send(topicGreeting, new Greeting("Greetings", "World!"));
+        multiTypeKafkaTemplate.send(topicMultiType, new Greeting("Greetings", "World!"));
         return null;
 //        return apiService.getRentalMovies(title);
     }

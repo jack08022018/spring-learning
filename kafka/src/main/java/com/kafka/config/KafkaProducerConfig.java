@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 @Configuration
@@ -56,7 +57,11 @@ public class KafkaProducerConfig {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        configProps.put(JsonSerializer.TYPE_MAPPINGS, "greeting:com.kafka.dto.Greeting, farewell:com.kafka.dto.Farewell");
+//        configProps.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
+        String typeMappings = """
+                greeting:com.kafka.dto.Greeting,
+                farewell:com.kafka.dto.Farewell""";
+        configProps.put(JsonSerializer.TYPE_MAPPINGS, typeMappings);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
