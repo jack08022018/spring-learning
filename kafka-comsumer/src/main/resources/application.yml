@@ -1,18 +1,14 @@
 server:
-  port: 9195
-  servlet.context-path: /kafka
+  port: 9196
+  servlet.context-path: /kafka-consumer
   undertow.max-http-post-size: 0
 spring:
-  application.name: kafka
+  application.name: kafka-consumer
   main.allow-bean-definition-overriding: true
   profiles.active: dev
   jackson.default-property-inclusion: non_absent
 
 spring.kafka.bootstrap-servers: localhost:8097
-topic.string: TOPIC_STRING
-topic.long.message: longMessage
-topic.greeting: TOPIC_GREETING
-topic.multiType: TOPIC_MULTI_TYPE
 
 logging:
   level:

@@ -1,6 +1,7 @@
 package com.kafka.controller;
 
 
+import com.kafka.config.TopicName;
 import com.kafka.dto.Greeting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,22 +23,23 @@ public class ApiController {
     @Autowired
     private KafkaTemplate<String, Object> multiTypeKafkaTemplate;
 
-    @Value(value = "${topic.string}")
-    private String topicString;
-
-    @Value(value = "${topic.greeting}")
-    private String topicGreeting;
-
-    @Value(value = "${topic.multiType}")
-    private String topicMultiType;
-
-    @GetMapping(value = "/sendMessage")
-    public <T> T sendMessage(@RequestParam("title") String title) throws Exception {
-//        kafkaTemplate.send(topicString, title);
-//        greetingKafkaTemplate.send(topicGreeting, new Greeting("Greetings", "World!"));
-        multiTypeKafkaTemplate.send(topicMultiType, new Greeting("Greetings", "World!"));
+    @GetMapping(value = "/sendString")
+    public <T> T sendString(@RequestParam("title") String title) throws Exception {
+        kafkaTemplate.send(TopicName.TOPIC_STRING, title);
         return null;
-//        return apiService.getRentalMovies(title);
     }
+
+    @GetMapping(value = "/sendObject")
+    public <T> T sendObject() throws Exception {
+        greetingKafkaTemplate.send(TopicName.TOPIC_GREETING, new Greeting("Greetings", "World!"));
+        return null;
+    }
+
+    @GetMapping(value = "/sendMultiType")
+    public <T> T sendMultiType() throws Exception {
+        multiTypeKafkaTemplate.send(TopicName.TOPIC_MULTI_TYPE, new Greeting("Greetings", "World!"));
+        return null;
+    }
+
 
 }
