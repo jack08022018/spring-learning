@@ -47,16 +47,16 @@ services:
 ##    networks:
 ##      - spring-cloud-network
 #
-#  h2database:
-#    build:
-#      context: h2database
-#      dockerfile: Dockerfile
-#    container_name: h2database
-#    image: h2database:jack
-#    ports:
-#      - "9093:9093"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=dev
+  h2database:
+    build:
+      context: h2database
+      dockerfile: Dockerfile
+    container_name: h2database
+    image: h2database:jack
+    ports:
+      - "9093:9093"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
 
 #  itext:
 #    build:
