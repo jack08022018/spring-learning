@@ -4,13 +4,13 @@ server:
 spring:
   application.name: graphql
   main.allow-bean-definition-overriding: true
-  profiles:
-    active: dev
+  profiles.active: dev
   jackson.default-property-inclusion: non_absent
   jackson.parser.allow-unquoted-control-chars: true
   graphql:
-    schema:
-      locations: classpath:graphql/
+    schema.locations: classpath:graphql/
+    graphiql.enabled: true
+    servlet.corsEnabled: true
   jpa:
     properties:
       hibernate:

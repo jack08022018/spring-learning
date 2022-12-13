@@ -4,20 +4,21 @@ type CityEntity {
     lastUpdate: String
     country: CountryEntity!
 }
-
-type CountryEntity {
-    countryId: ID!
-    country: String
-    lastUpdate: String
-    cities: [CityEntity]!
+input CityDto {
+    cityName: String
+    cityId: Int
 }
 
-# The Root Query for the application
 type Query {
-    findCity(city: String): [CityEntity]!
+    findCity(city: CityDto): [CityEntity]
+    findCityByName(city: String, id: Int): [CityEntity]
 }
 
-# The Root Mutation for the application
-#type Mutation {
-#    createPost(title: String!, text: String!, category: String, authorId: String!) : Post!
-#}
+type Mutation {
+    saveCity(city: CityDto): [CityEntity]!
+}
+
+schema {
+    query: Query,
+    mutation: Mutation
+}

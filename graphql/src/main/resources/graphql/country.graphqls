@@ -1,0 +1,15 @@
+
+type CountryEntity {
+    countryId: ID!
+    country: String
+    lastUpdate: String
+    cities: [CityEntity]
+}
+input CountryDto {
+    countryName: String
+    countryId: Int!
+}
+
+extend type Query {
+    findCountry(country: CountryDto): [CountryEntity]
+}

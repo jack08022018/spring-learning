@@ -7,7 +7,7 @@ plugins {
 
 group = "com"
 version = "0.0.1"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_19
 
 configurations {
     compileOnly {
@@ -32,6 +32,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework:spring-webflux")
     testImplementation("org.springframework.graphql:spring-graphql-test")
+    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.3")
+    implementation("com.graphql-java:graphql-java-tools:5.2.4")
 }
 
 tasks.withType<Test> {

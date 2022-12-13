@@ -1,4 +1,4 @@
-package com.graphql.configuration.exceptionHandler.exception;
+package com.graphql.configuration.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

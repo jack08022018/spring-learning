@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.Executor;
 
-@EnableAsync
+//@EnableAsync
 @Configuration
 @EnableScheduling
 public class BeanConfig {
