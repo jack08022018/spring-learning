@@ -10,9 +10,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CountryDto {
-    @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+", message = "countryName chứa kí tự đặc biệt!")
+//    @Pattern(regexp = "[a-zA-Z][a-zA-Z ]+", message = "countryName chứa kí tự đặc biệt!")
     private String countryName;
 
-    @NotNull(message = "countryId is not null")
+//    @NotNull(message = "countryId is not null")
     private int countryId;
 }

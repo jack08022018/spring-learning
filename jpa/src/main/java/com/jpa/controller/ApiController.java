@@ -6,6 +6,8 @@ import com.jpa.entity.EmployeeEntity;
 import com.jpa.repository.RentalRepository;
 import com.jpa.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +33,7 @@ public class ApiController {
     }
 
     @GetMapping(value = "/testJpaSave")
-    public <T> T testJpaSave() {
+    public <T> T testJpaSave() throws JSONException {
         return apiService.testJpaSave();
     }
 

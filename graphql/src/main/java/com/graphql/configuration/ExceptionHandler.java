@@ -49,13 +49,4 @@ public class ExceptionHandler extends DataFetcherExceptionResolverAdapter {
 //        return Arrays.asList(build);
 //    }
 
-//    private GraphQLError toGraphQLError(Throwable e, DataFetchingEnvironment env) {
-//        return GraphqlErrorBuilder.newError()
-//                .errorType(ErrorType.INTERNAL_ERROR)
-//                .message(e.getMessage())
-//                .path(env.getExecutionStepInfo().getPath())
-////              .location(env.getField().getSourceLocation())
-//                .build();
-//    }
-//
 }

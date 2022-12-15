@@ -21,7 +21,8 @@ import java.util.List;
 @Table(name = "country")
 public class CountryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "country_seq", sequenceName = "country_seq",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "country_seq")
     @Column(name = "country_id")
     private Integer countryId;
 

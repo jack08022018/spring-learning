@@ -7,9 +7,13 @@ type CountryEntity {
 }
 input CountryDto {
     countryName: String
-    countryId: Int!
+    countryId: Int
 }
 
 extend type Query {
     findCountry(country: CountryDto): [CountryEntity]
+}
+
+extend type Mutation {
+    createCountry(dto: CountryDto): Boolean
 }
