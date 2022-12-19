@@ -15,6 +15,7 @@
     <file type="web" url="file://$PROJECT_DIR$/kafka" />
     <file type="web" url="file://$PROJECT_DIR$/kafka-comsumer" />
     <file type="web" url="file://$PROJECT_DIR$/keycloak" />
+    <file type="web" url="file://$PROJECT_DIR$/mongodb" />
     <file type="web" url="file://$PROJECT_DIR$/multi-db" />
     <file type="web" url="file://$PROJECT_DIR$/multidatasource" />
     <file type="web" url="file://$PROJECT_DIR$/multithread" />

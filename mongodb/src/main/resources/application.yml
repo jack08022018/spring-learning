@@ -1,0 +1,28 @@
+server:
+  port: 9197
+  servlet.context-path: /mongodb
+  undertow.max-http-post-size: 0
+spring:
+  application.name: mongodb
+  main.allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+  jackson.default-property-inclusion: non_absent
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: test
+      username:
+      password:
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.web.FilterChainProxy: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.boot.autoconfigure: INFO
+    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql: trace
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
