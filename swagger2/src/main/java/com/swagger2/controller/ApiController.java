@@ -64,7 +64,7 @@ public class ApiController {
 
     @PostMapping("/getUser")
     public ModelMap getUser() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(10);
         ModelMap result = new ModelMap();
         result.put("id", 1);
         result.put("name", "King");

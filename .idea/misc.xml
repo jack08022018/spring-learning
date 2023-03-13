@@ -29,7 +29,7 @@
     <file type="web" url="file://$PROJECT_DIR$/swagger2" />
     <file type="web" url="file://$PROJECT_DIR$/validation" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="19" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectType">

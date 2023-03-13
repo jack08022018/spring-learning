@@ -1,6 +1,7 @@
 package com.multidb.configuration.datasources;
 
 import com.multidb.repository.employee.entity.SalariesEntity;
+import lombok.Value;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;

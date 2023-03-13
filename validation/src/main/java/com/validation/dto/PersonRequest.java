@@ -21,6 +21,11 @@ public class PersonRequest {
     @Length(min = 3, max = 200, message = "Tên phải từ 3 đến 200 kí tự!")
     private String name;
 
+//    \d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])
+//    ([01]\d|2[0-3])[0-5]\d{2}
+    @Pattern(regexp = "^([01]\\d|2[0-3])[0-5]\\d{2}$", message = "YYYYMMDDHHMMSS")
+    private String dateTime;
+
     @Min(value = 0, message = "Tuổi không được bé hơn 0!")
     @Max(value = 200, message = "Tuổi không được lớn hơn 200!")
     private Long age;

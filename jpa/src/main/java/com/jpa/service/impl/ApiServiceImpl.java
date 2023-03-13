@@ -14,6 +14,8 @@ import com.jpa.service.ActorService;
 import com.jpa.service.ApiService;
 import com.jpa.service.CityService;
 import com.jpa.service.CountryService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -45,66 +47,31 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
+@RequiredArgsConstructor
 public class ApiServiceImpl implements ApiService {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    @Qualifier("customObjectMapper")
-    private ObjectMapper mapper;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    final EntityManager entityManager;
 
-    @Autowired
-    private RentalRepository rentalRepository;
-
-    @Autowired
-    private RentalDao rentalDao;
-
-    @Autowired
-    private CountryRepository countryRepository;
-
-    @Autowired
-    private RentalNewRepository rentalNewRepository;
-
-    @Autowired
-    private ActorRepository actorRepository;
-
-    @Autowired
-    private FilmRepository filmRepository;
-
-    @Autowired
-    private ActorService actorService;
-
-    @Autowired
-    private CityService cityService;
-
-    @Autowired
-    private CountryService countryService;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private SalariesRepository salariesRepository;
-
-    @Autowired
-    private StoreRepository storeRepository;
-
-    @Autowired
-    private InventoryRepository inventoryRepository;
-
-    @Autowired
-    private CityRepository cityRepository;
-
-    @Autowired
-    private ClientRepository clientRepository;
-
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private PostDetailRepository postDetailRepository;
+    final ObjectMapper customObjectMapper;
+    final RentalRepository rentalRepository;
+    final RentalDao rentalDao;
+    final CountryRepository countryRepository;
+    final RentalNewRepository rentalNewRepository;
+    final ActorRepository actorRepository;
+    final FilmRepository filmRepository;
+    final ActorService actorService;
+    final CityService cityService;
+    final CountryService countryService;
+    final EmployeeRepository employeeRepository;
+    final SalariesRepository salariesRepository;
+    final StoreRepository storeRepository;
+    final InventoryRepository inventoryRepository;
+    final CityRepository cityRepository;
+    final ClientRepository clientRepository;
+    final PostRepository postRepository;
+    final PostDetailRepository postDetailRepository;
 
     @Override
     public <T> List<T> getRentalMovies(String title) {
@@ -169,8 +136,8 @@ public class ApiServiceImpl implements ApiService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        actorService.saveActor("THORA" + postfix);
-//        cityService.saveCity("Ziguinchor" + postfix);
+        actorService.saveActor("THORA" + postfix);
+        cityService.saveCity("Ziguinchor" + postfix);
 //        int a = 1/0;
         return (T) entity;
     }

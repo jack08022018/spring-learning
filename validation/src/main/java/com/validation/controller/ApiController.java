@@ -2,6 +2,8 @@ package com.validation.controller;
 
 
 import com.validation.dto.PersonRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +22,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Validated
 @RestController
 @RequestMapping(value = "/api")
+@RequiredArgsConstructor
 public class ApiController {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-//    @Autowired
-//    private ApiService apiService;
-
-    @Autowired
-    Validator validator;
+//    final ApiService apiService;
+    final Validator validator;
 
     @PostMapping("/validateAuto")
     public void validateAuto(@Valid @RequestBody PersonRequest request) {
