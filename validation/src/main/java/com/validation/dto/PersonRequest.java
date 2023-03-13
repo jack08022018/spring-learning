@@ -1,6 +1,7 @@
 package com.validation.dto;
 
 import com.validation.configuration.customValidate.CapitalizedConstraint;
+import com.validation.configuration.customValidate.DateTimeConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,8 @@ public class PersonRequest {
 
 //    \d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])
 //    ([01]\d|2[0-3])[0-5]\d{2}
-    @Pattern(regexp = "^([01]\\d|2[0-3])[0-5]\\d{2}$", message = "YYYYMMDDHHMMSS")
+//    (([0-1]?[0-9])|(2[0-3])):[0-5][0-9]:[0-5][0-9]
+    @DateTimeConstraint(message = "Datetime format yyyyMMddHHmmss")
     private String dateTime;
 
     @Min(value = 0, message = "Tuổi không được bé hơn 0!")

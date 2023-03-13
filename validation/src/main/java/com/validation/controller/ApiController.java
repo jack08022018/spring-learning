@@ -18,6 +18,8 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,7 +35,8 @@ public class ApiController {
 
     @PostMapping("/validateAuto")
     public void validateAuto(@Valid @RequestBody PersonRequest request) {
-
+        var date = LocalDateTime.parse("20230313172034", DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        System.out.println(date);
     }
 
     @PostMapping("/validateByHand")
