@@ -1,7 +1,11 @@
 package com.validation.configuration.exceptionHandler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.validation.common.FunctionCommonUtils;
 import com.validation.configuration.exceptionHandler.exception.ErrorResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,17 +27,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private FunctionCommonUtils functionCommonUtils;
+    final FunctionCommonUtils functionCommonUtils;
+    final ObjectMapper customObjectMapper;
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> mainExceptionHandler(Exception e, HandlerMethod handlerMethod, HttpServletRequest request) {
@@ -55,10 +59,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
         logger.error("handleMethodArgumentNotValid\n", e);
-        Map<String, String> errorDetails = e.getBindingResult()
-                .getFieldErrors()
+//        Map<String, String> errorDetails = e.getBindingResult()
+//                .getFieldErrors()
+//                .stream()
+//                .collect(Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage));
+
+        List<String> errorDetails = e.getBindingResult()
+                .getAllErrors()
                 .stream()
-                .collect(Collectors.toMap(FieldError::getField, DefaultMessageSourceResolvable::getDefaultMessage));
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.toList());
         ErrorResponse response = ErrorResponse.builder()
                 .timestamp(functionCommonUtils.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss"))
                 .status(HttpStatus.BAD_REQUEST.value())

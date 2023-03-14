@@ -1,4 +1,4 @@
-package com.validation.configuration.customValidate;
+package com.validation.customValidate;
 
 import org.springframework.util.StringUtils;
 

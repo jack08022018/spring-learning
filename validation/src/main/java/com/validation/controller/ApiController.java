@@ -1,6 +1,7 @@
 package com.validation.controller;
 
 
+import com.validation.dto.Address;
 import com.validation.dto.PersonRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,18 @@ public class ApiController {
     public void validateAuto(@Valid @RequestBody PersonRequest request) {
         var date = LocalDateTime.parse("20230313172034", DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
         System.out.println(date);
+    }
+
+    @PostMapping("/validateAddress")
+    public void validateAddress(@Valid @RequestBody Address request) {
+//        Set<ConstraintViolation<Address>> violations = validator.validate(request);
+//        for (ConstraintViolation<Address> v : violations) {
+//            if(v.getPropertyPath().equals("")) {
+//                System.out.println(v.getMessage());
+//            }else {
+//                System.out.println(v.getPropertyPath() + ": " + v.getMessage());
+//            }
+//        }
     }
 
     @PostMapping("/validateByHand")

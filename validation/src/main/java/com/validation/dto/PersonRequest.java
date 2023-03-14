@@ -1,7 +1,7 @@
 package com.validation.dto;
 
-import com.validation.configuration.customValidate.CapitalizedConstraint;
-import com.validation.configuration.customValidate.DateTimeConstraint;
+import com.validation.customValidate.CapitalizedConstraint;
+import com.validation.customValidate.DateTimeConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
